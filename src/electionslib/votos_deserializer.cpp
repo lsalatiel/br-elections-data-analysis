@@ -3,7 +3,7 @@
 #include <sstream> // istringstream
 #include <map>     // map
 
-static void processa_votos(std::map<std::string, Partido>, int cargo, std::string filePath){
+static void processa_votos(std::map<int, Partido> partidos, int cargo, std::string filePath){
     try{
         std::ifstream input(filePath);
         std::string line;
@@ -37,8 +37,7 @@ static void processa_votos(std::map<std::string, Partido>, int cargo, std::strin
                     continue;
                 
                 if(codigo_cargo == cargo){
-                    //if mapa de partido ja tem o candidato, adiciona votos
-                    //else adiciona voto
+                    //TO DO
                 }
                 
             }catch(std::exception &e){

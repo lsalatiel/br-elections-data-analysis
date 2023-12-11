@@ -9,7 +9,7 @@ class Partido {
     int numero_federacao;
     int votos_nominais;
     int votos_legenda;
-    // map <std::string, Candidato>
+    // map <std::string, Candidato> candidatos
 
     public:
         Partido();

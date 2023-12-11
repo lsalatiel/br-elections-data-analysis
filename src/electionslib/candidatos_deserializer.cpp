@@ -2,15 +2,16 @@
 #include <fstream> // ifstream
 #include <sstream> // istringstream
 #include <map>     // map
+#include <string>
 
-static std::map<std::string, Partido> processa_candidatos(int cargo, std::string &filePath){
-    std::map<std::string, Partido> partidos;
+static std::map<int, Partido> processa_candidatos(int cargo, std::string &filePath){
+    std::map<int, Partido> partidos;
     try{
         std::ifstream input(filePath);
         std::string line;
         getline(input, line);
 
-        std::string nome, nome_urna, numero, data_nascimento, nome_tipo_dest_voto, total_votos, sigla;
+        std::string nome, nome_urna, numero, data_nascimento, nome_tipo_dest_voto, sigla;
         int codigo_situacao_candidato, numero, numero_partido, codigo_cargo, numero_federacao, codigo_situacao_turno;
         bool genero;
 
@@ -63,10 +64,15 @@ static std::map<std::string, Partido> processa_candidatos(int cargo, std::string
                     }
                 }
 
-                //if mapa partidos nao possui a chave numero_partido, cria-se partido
-               //if codigocargo é igual a cargo e nome tipodesvoto é valido ou valido legenda, cria candidato
+                if(!partidos.count(numero_partido))
+                    partidos.emplace(numero_partido, Partido(sigla, numero_partido));
+                
+                //TO DO: processar a data
 
-
+                if(codigo_cargo == cargo && (nome_tipo_dest_voto == "Válido" || nome_tipo_dest_voto == "Válido (legenda)")){
+                    Candidato c(nome, nome_urna, codigo_situacao_candidato, numero, numero_partido, numero_federacao, codigo_situacao_turno, genero, nome_tipo_dest_voto, 0);
+                    //partidos.at(numero_partido).add_candidato(c);
+                }
 
             }catch(std::exception &e){
                 e.what();
