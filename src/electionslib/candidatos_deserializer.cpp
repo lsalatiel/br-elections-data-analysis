@@ -2,9 +2,8 @@
 #include <fstream> // ifstream
 #include <sstream> // istringstream
 #include <map>     // map
-#include <iostream>
 
-static std::map<std::string, Partido> processaCandidatos(int cargo, std::string &filePath){
+static std::map<std::string, Partido> processa_candidatos(int cargo, std::string &filePath){
     std::map<std::string, Partido> partidos;
     try{
         std::ifstream input(filePath);
