@@ -29,31 +29,31 @@ class Candidato {
         Candidato(std::string nome, std::string nome_urna, Candidato::SituacaoCandidato codigo_situacao_candidato, int numero, int numero_partido, int numero_federacao,
                 Candidato::SituacaoTurno codigo_situacao_turno, Candidato::Genero genero, Candidato::TipoDestinoVoto nome_tipo_dest_votos, int total_votos);
 
-        int get_numero_federacao();
+        int get_numero_federacao() const;
 
-        int get_numero_candidato();
+        int get_numero_candidato() const;
 
-        int get_quantidade_votos();
+        int get_quantidade_votos() const;
 
-        Candidato::TipoDestinoVoto get_nome_tipo_dest_votos();
+        Candidato::TipoDestinoVoto get_nome_tipo_dest_votos() const;
 
-        bool is_candidatura_deferida();
+        bool is_candidatura_deferida() const;
 
-        bool is_eleito();
+        bool is_eleito() const;
 
-        /* LocalDate getDataNascimento(); */
+        /* LocalDate getDataNascimento() const; */
 
-        std::string get_nome_na_urna();
+        std::string get_nome_na_urna() const;
 
-        std::string get_nome();
+        std::string get_nome() const;
 
-        Candidato::Genero get_genero();
+        Candidato::Genero get_genero() const;
 
-        Candidato::SituacaoCandidato get_codigo_situacao_candidato();
+        Candidato::SituacaoCandidato get_codigo_situacao_candidato() const;
+
+        int get_numero_partido() const;
 
         void add_quantidade_votos(int quantidadeVotos);
-
-        int get_numero_partido();
 };
 
 #endif

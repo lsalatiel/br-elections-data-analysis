@@ -17,29 +17,29 @@ class Partido {
         Partido();
         Partido(std::string sigla, int numero);
 
-        int get_numero();
+        int get_numero() const;
 
-        std::string get_sigla();
+        std::string get_sigla() const;
 
         Candidato &get_candidato(int numeroCandidato);
 
         void add_candidato(Candidato &c);
 
-        std::vector<Candidato> get_candidato_vector();
+        const std::vector<Candidato> get_candidato_vector() const;
 
-        int get_votos_legenda();
+        int get_votos_legenda() const;
 
-        int get_votos_nominais();
+        int get_votos_nominais() const;
 
-        int get_votos_totais();
+        int get_votos_totais() const;
 
         void add_votos_legenda(int votosLegenda);
 
         void add_votos_nominais(int qtdVotos);
 
-        Candidato &get_candidato_mais_votado();
+        const Candidato &get_candidato_mais_votado() const;
 
-        Candidato &get_candidato_menos_votado();
+        const Candidato &get_candidato_menos_votado() const;
 };
 
 #endif

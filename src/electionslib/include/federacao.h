@@ -13,7 +13,7 @@ class Federacao {
         Federacao();
         Federacao(int numero);
 
-        int get_numero();
+        int get_numero() const;
 
         void add_partido(Partido &partido);
 };

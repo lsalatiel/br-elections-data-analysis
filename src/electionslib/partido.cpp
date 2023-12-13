@@ -4,11 +4,11 @@ Partido::Partido(std::string sigla, int numero) :
             sigla(sigla),
             numero(numero) {}
 
-int Partido::get_numero() {
+int Partido::get_numero() const {
     return numero;
 }
 
-std::string Partido::get_sigla() {
+std::string Partido::get_sigla() const {
     return sigla;
 }
 
@@ -22,7 +22,7 @@ Candidato &Partido::get_candidato(int numero_candidato) {
     return candidatos[numero_candidato];
 }
 
-std::vector<Candidato> Partido::get_candidato_vector() {
+const std::vector<Candidato> Partido::get_candidato_vector() const {
     std::vector<Candidato> candidatos_vector;
     candidatos_vector.reserve(candidatos.size());
     for(const auto &[key, value] : candidatos) {
@@ -31,15 +31,15 @@ std::vector<Candidato> Partido::get_candidato_vector() {
     return candidatos_vector;
 }
 
-int Partido::get_votos_legenda() {
+int Partido::get_votos_legenda() const {
     return votos_legenda;
 }
 
-int Partido::get_votos_nominais() {
+int Partido::get_votos_nominais() const {
     return votos_nominais;
 }
 
-int Partido::get_votos_totais() {
+int Partido::get_votos_totais() const {
     return votos_legenda + votos_nominais;
 }
 
@@ -51,10 +51,10 @@ void Partido::add_votos_nominais(int qtd_votos) {
     votos_nominais += qtd_votos;
 }
 
-Candidato &Partido::get_candidato_mais_votado() {
+const Candidato &Partido::get_candidato_mais_votado() const {
 
 }
 
-Candidato &Partido::get_candidato_menos_votado() {
+const Candidato &Partido::get_candidato_menos_votado() const {
 
 }

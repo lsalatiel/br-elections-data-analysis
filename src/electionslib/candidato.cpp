@@ -13,49 +13,49 @@ Candidato::Candidato(std::string nome, std::string nome_urna, Candidato::Situaca
             nome_tipo_dest_votos(nome_tipo_dest_votos),
             total_votos(total_votos) {}
 
-int Candidato::get_numero_federacao() {
+int Candidato::get_numero_federacao() const {
     return numero_federacao;
 }
 
-int Candidato::get_numero_candidato() {
+int Candidato::get_numero_candidato() const {
     return numero;
 }
 
-int Candidato::get_quantidade_votos() {
+int Candidato::get_quantidade_votos() const {
     return total_votos;
 }
 
-Candidato::TipoDestinoVoto Candidato::get_nome_tipo_dest_votos() {
+Candidato::TipoDestinoVoto Candidato::get_nome_tipo_dest_votos() const {
     return nome_tipo_dest_votos;
 }
 
 /* LocalDate getDataNascimento(); */
 
-std::string Candidato::get_nome_na_urna() {
+std::string Candidato::get_nome_na_urna() const {
     return nome_urna;
 }
 
-std::string Candidato::get_nome() {
+std::string Candidato::get_nome() const {
     return nome;
 }
 
-Candidato::Genero Candidato::get_genero() {
+Candidato::Genero Candidato::get_genero() const {
     return genero;
 }
 
-Candidato::SituacaoCandidato Candidato::get_codigo_situacao_candidato() {
+Candidato::SituacaoCandidato Candidato::get_codigo_situacao_candidato() const {
     return codigo_situacao_candidato;
 }
 
-int Candidato::get_numero_partido() {
+int Candidato::get_numero_partido() const {
     return numero_partido;
 }
 
-bool Candidato::is_candidatura_deferida() {
+bool Candidato::is_candidatura_deferida() const {
     return codigo_situacao_candidato == Candidato::SituacaoCandidato::DEFERIDO;
 }
 
-bool Candidato::is_eleito() {
+bool Candidato::is_eleito() const {
     return codigo_situacao_turno == Candidato::SituacaoTurno::ELEITO;
 }
 

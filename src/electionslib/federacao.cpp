@@ -3,7 +3,7 @@
 Federacao::Federacao(int numero) :
             numero(numero) {}
 
-int Federacao::get_numero() {
+int Federacao::get_numero() const {
     return numero;
 }
 
