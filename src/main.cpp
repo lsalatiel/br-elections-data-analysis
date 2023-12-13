@@ -1,9 +1,9 @@
 #include <iostream>
 #include "electionslib/include/candidatos_deserializer.h"
 #include "electionslib/include/votos_deserializer.h"
+#include "electionslib/include/candidato.h"
 
-const int FEDERAL = 6;
-const int ESTADUAL = 7;
+enum CARGO { FEDERAL = 6, ESTADUAL = 7 };
 
 int main(int argc, char** argv) {
     if(argc < 5) {
@@ -11,7 +11,7 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    int cargo = 0;
+    CARGO cargo;
     if(std::string(argv[1]) == "--federal")
         cargo = FEDERAL;
     else if(std::string(argv[1]) == "--estadual")
@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
     }
 
     std::string candidatos_file_path = argv[2];
-    std::string votacao_file_path = argv[2];
+    std::string votacao_file_path = argv[3];
 
     return 0;
 }
