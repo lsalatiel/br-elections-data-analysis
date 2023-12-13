@@ -9,7 +9,7 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    CARGO cargo;
+    Cargo cargo;
     if(std::string(argv[1]) == "--federal")
         cargo = Cargo::FEDERAL;
     else if(std::string(argv[1]) == "--estadual")
