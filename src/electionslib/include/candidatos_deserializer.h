@@ -7,6 +7,8 @@
 #include "partido.h"
 #include "federacao.h"
 
-// funcoes de deserializacao
+enum class Cargo { FEDERAL = 6, ESTADUAL = 7 };
+
+std::map<int, Partido> &processa_candidatos(int cargo, const std::string &filePath);
 
 #endif

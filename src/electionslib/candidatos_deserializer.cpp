@@ -1,12 +1,14 @@
 #include "include/candidatos_deserializer.h"
+#include "include/candidato.h"
+#include "include/partido.h"
 #include <fstream> // ifstream
 #include <sstream> // istringstream
 #include <map>     // map
 #include <string>
 
-static std::map<int, Partido> processa_candidatos(int cargo, std::string &filePath){
+std::map<int, Partido> &processa_candidatos(int cargo, std::string &filePath){
     std::map<int, Partido> partidos;
-    try{
+    try {
         std::ifstream input(filePath);
         std::string line;
         getline(input, line);
@@ -16,12 +18,12 @@ static std::map<int, Partido> processa_candidatos(int cargo, std::string &filePa
         bool genero;
 
         while(getline(input, line)){
-            try{
+            try {
                 std::istringstream lineStream(line);
                 int i = 0;
                 std::string token;
 
-                while(getline(lineStream, token, ';')){
+                while(getline(lineStream, token, ';')) {
                     switch(i++){
                         case 13:
                             codigo_cargo = std::stoi(token);
@@ -69,16 +71,16 @@ static std::map<int, Partido> processa_candidatos(int cargo, std::string &filePa
                 
                 //TO DO: processar a data
 
-                if(codigo_cargo == cargo && (nome_tipo_dest_voto == "Válido" || nome_tipo_dest_voto == "Válido (legenda)")){
+                if(codigo_cargo == cargo && (nome_tipo_dest_voto == "Válido" || nome_tipo_dest_voto == "Válido (legenda)")) {
                     Candidato c(nome, nome_urna, codigo_situacao_candidato, numero, numero_partido, numero_federacao, codigo_situacao_turno, genero, nome_tipo_dest_voto, 0);
                     //partidos.at(numero_partido).add_candidato(c);
                 }
 
-            }catch(std::exception &e){
+            } catch(std::exception &e){
                 e.what();
             }
         }
-    }catch(std::exception &e){
+    } catch(std::exception &e){
         e.what();
     }
 

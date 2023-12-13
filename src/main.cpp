@@ -3,8 +3,6 @@
 #include "electionslib/include/votos_deserializer.h"
 #include "electionslib/include/candidato.h"
 
-enum CARGO { FEDERAL = 6, ESTADUAL = 7 };
-
 int main(int argc, char** argv) {
     if(argc < 5) {
         std::cout << "Not enough arguments. Usage: " << argv[0] << " <cargo> <candidatos.csv> <votacao.csv> <data_eleicao>" << std::endl;
@@ -13,9 +11,9 @@ int main(int argc, char** argv) {
 
     CARGO cargo;
     if(std::string(argv[1]) == "--federal")
-        cargo = FEDERAL;
+        cargo = Cargo::FEDERAL;
     else if(std::string(argv[1]) == "--estadual")
-        cargo = ESTADUAL;
+        cargo = Cargo::ESTADUAL;
     else {
         std::cout << "Invalid cargo. Usage: --federal or --estadual" << std::endl;
         return 1;
