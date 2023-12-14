@@ -10,7 +10,7 @@ Candidato::Candidato(std::string nome, std::string nome_urna, Candidato::Situaca
             numero_federacao(numero_federacao),
             codigo_situacao_turno(codigo_situacao_turno),
             genero(genero),
-            nome_tipo_dest_votos(nome_tipo_dest_votos) {}
+            nome_tipo_dest_votos(nome_tipo_dest_votos) {total_votos = 0;}
 
 int Candidato::get_numero_federacao() const {
     return numero_federacao;

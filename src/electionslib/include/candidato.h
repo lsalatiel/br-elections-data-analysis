@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <chrono>
+#include <ctime>
 
 class Candidato {
     public:

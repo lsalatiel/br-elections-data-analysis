@@ -2,7 +2,7 @@
 
 Partido::Partido(std::string sigla, int numero) :
             sigla(sigla),
-            numero(numero) {}
+            numero(numero) {votos_nominais = 0; votos_legenda = 0;}
 
 int Partido::get_numero() const {
     return numero;
