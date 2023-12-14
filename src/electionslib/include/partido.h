@@ -41,7 +41,7 @@ class Partido {
 
         const Candidato &get_candidato_menos_votado() const;
 
-        void Partido::print_partido() {
+        void print_partido();
 };
 
 #endif

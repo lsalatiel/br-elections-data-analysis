@@ -63,13 +63,10 @@ const Candidato &Partido::get_candidato_menos_votado() const {
 void Partido::print_partido() {
     std::cout << sigla << "\n" << numero << std::endl;
     
-    for(const std::pair<int, std::string> x : map){
-        // std::cout << x.first << std::endl;
+    for(const std::pair<int, Candidato> x : candidatos){
         Candidato c = x.second;
-        c.print_candidato;
-        std::cout << x.second << std::endl;
-    } //ta aqui oq vc quer
-    // 1.84.2
-
+        c.print_candidato();
+        /* std::cout << x.second << std::endl; */
+    }
 
 }

@@ -57,7 +57,7 @@ class Candidato {
 
         void add_quantidade_votos(int quantidadeVotos);
 
-        void Candidato::print_candidato();
+        void print_candidato();
 };
 
 #endif
