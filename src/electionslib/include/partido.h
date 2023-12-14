@@ -14,7 +14,7 @@ class Partido {
     std::map<int, Candidato> candidatos;
 
     public:
-        Partido();
+        Partido() {};
         Partido(std::string sigla, int numero);
 
         int get_numero() const;

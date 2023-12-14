@@ -71,20 +71,25 @@ void Candidato::print_candidato() {
     std::cout << nome_urna << std::endl;
     std::cout << numero << std::endl;
     std::cout << numero_federacao << std::endl;
-    // std::cout << genero << std::endl;
-    // std::cout << data_nascimento << std::endl;
-    // std::cout << codigo_situacao_candidato << std::endl;
+
     if(codigo_situacao_turno == Candidato::SituacaoTurno::ELEITO)
         std::cout << "ELEITO" << std::endl;
     else
         std::cout << "NAO ELEITO" << std::endl;
+
     if(codigo_situacao_candidato == Candidato::SituacaoCandidato::DEFERIDO)
         std::cout << "DEFERIDO" << std::endl;
     else
         std::cout << "INDEFERIDO" << std::endl;
-    if(codigo_situacao_turno == Candidato::SituacaoTurno::ELEITO)
-        std::cout << "ELEITO" << std::endl;
-    if(codigo_situacao_turno == Candidato::SituacaoTurno::ELEITO)
-        std::cout << "ELEITO" << std::endl;
+
+    if(nome_tipo_dest_votos == Candidato::TipoDestinoVoto::LEGENDA)
+        std::cout << "LEGENDA" << std::endl;
+    else
+        std::cout << "NOMINAL" << std::endl;
+         
+    if(genero == Candidato::Genero::MASCULINO)
+        std::cout << "MASCULINO" << std::endl;
+    else
+        std::cout << "FEMININO" << std::endl;
 
 }

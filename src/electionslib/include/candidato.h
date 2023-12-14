@@ -5,6 +5,8 @@
 #include <chrono>
 #include <ctime>
 
+enum class Cargo { FEDERAL = 6, ESTADUAL = 7 };
+
 class Candidato {
     public:
         enum class Genero { MASCULINO, FEMININO };
@@ -15,19 +17,21 @@ class Candidato {
     private:
         std::string nome;
         std::string nome_urna;
-        SituacaoCandidato codigo_situacao_candidato; // 2 ou 16 = candidato deferido
+
         int numero;
         int numero_partido;
         int numero_federacao;
-        SituacaoTurno codigo_situacao_turno; // 2 ou 3 = eleito
-        Genero genero;
-        /* std::chrono::year_month_day data_nascimento; */
-        std::tm data_nascimento;
-        TipoDestinoVoto nome_tipo_dest_votos; // nominal ou legenda
         int total_votos;
 
+        std::tm data_nascimento;
+
+        SituacaoTurno codigo_situacao_turno; // 2 ou 3 = eleito
+        Genero genero;
+        SituacaoCandidato codigo_situacao_candidato; // 2 ou 16 = candidato deferido
+        TipoDestinoVoto nome_tipo_dest_votos; // nominal ou legenda
+
     public:
-        Candidato();
+        Candidato() {};
         Candidato(std::string nome, std::string nome_urna, Candidato::SituacaoCandidato codigo_situacao_candidato, int numero, int numero_partido, int numero_federacao,
                 Candidato::SituacaoTurno codigo_situacao_turno, Candidato::Genero genero, std::tm data_nascimento, Candidato::TipoDestinoVoto nome_tipo_dest_votos);
 

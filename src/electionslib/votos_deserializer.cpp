@@ -1,5 +1,6 @@
 #include "include/votos_deserializer.h"
 #include "include/candidato.h"
+#include "include/candidatos_deserializer.h"
 #include "include/partido.h"
 #include <fstream> // ifstream
 #include <sstream> // istringstream
@@ -26,8 +27,8 @@ std::string __iso_8859_1_to_utf8(std::string &str){
 	return strOut;
 }
 
-static void processa_votos(std::map<int, Partido> partidos, int cargo, std::string filePath){
-    try{
+static void processa_votos(std::map<int, Partido> partidos, Cargo cargo, std::string filePath){
+    /* try{ */
         std::ifstream input(filePath);
         std::string line;
         getline(input, line);
@@ -36,7 +37,7 @@ static void processa_votos(std::map<int, Partido> partidos, int cargo, std::stri
         Cargo cargo_candidato;
 
         while(std::getline(input, line)){
-            try{
+            /* try{ */
             	line = __iso_8859_1_to_utf8(line);
                 std::istringstream lineStream(line);
                 int i = 0;
@@ -68,25 +69,26 @@ static void processa_votos(std::map<int, Partido> partidos, int cargo, std::stri
                 
                 std::string numero_partido = std::to_string(numero_candidato).substr(0, 2);
                 if(cargo_candidato == cargo){
-                    if(partidos.find(numero_partido) == partidos.end())
+                    /* if(partidos.find(numero_partido) == partidos.end()) */
                        // partidos[numeroCandidato].addVotosLegenda(votos); //usar substring para pegar apenas os dois primeiros numeros do candidato ?  else{
                         // std::string numeroPartido = numeroCandidato; //aqui tem que fazer substring, porem e int
-                    }//da pra literalmente fazer uma funcao em candidato getNumeroPartido e retornar os dois primeuiros numero
+                    //}da pra literalmente fazer uma funcao em candidato getNumeroPartido e retornar os dois primeuiros numero
                         //se for deptuado estadual, divide por 1000. federal divide por 100
                 }
                 // olha isso aqui :
                 // int valor = 45642;
 
                 // Converte o valor inteiro em uma string.
-                std::string numero_partido = std::to_string(valor).substr(0, 2);
+                /* std::string numero_partido = std::to_string(valor).substr(0, 2); */
 
                 // Extrai os dois primeiros dígitos da string.
                 // std::string doisPrimeirosNumeros = stringValor.substr(0, 2);
-            }catch(std::exception &e){
-                e.what();
-            } // BLZ VO COMITAR
-        }
-    }catch(std::exception &e){
-        e.what();
+            /* }catch(std::exception &e){ */
+            /*     e.what(); */
+            /* } */
+        /* } */
+/*     }catch(std::exception &e){ */
+/*         e.what(); */
+/*     } */
     }
 }

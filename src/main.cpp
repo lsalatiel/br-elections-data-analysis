@@ -25,5 +25,10 @@ int main(int argc, char** argv) {
 
     std::map<int, Partido> partidos = processa_candidatos(cargo, candidatos_file_path);
 
+    for(const std::pair<int, Partido> x : partidos) {
+        Partido p = x.second;
+        p.print_partido();
+    }
+
     return 0;
 }

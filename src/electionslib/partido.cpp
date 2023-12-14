@@ -66,7 +66,7 @@ void Partido::print_partido() {
     for(const std::pair<int, Candidato> x : candidatos){
         Candidato c = x.second;
         c.print_candidato();
-        /* std::cout << x.second << std::endl; */
+        std::cout << std::endl;
     }
 
 }
