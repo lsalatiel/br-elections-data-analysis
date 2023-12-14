@@ -56,6 +56,8 @@ class Candidato {
         int get_numero_partido() const;
 
         void add_quantidade_votos(int quantidadeVotos);
+
+        void Candidato::print_candidato();
 };
 
 #endif

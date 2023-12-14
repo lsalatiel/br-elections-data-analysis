@@ -40,6 +40,8 @@ class Partido {
         const Candidato &get_candidato_mais_votado() const;
 
         const Candidato &get_candidato_menos_votado() const;
+
+        void Partido::print_partido() {
 };
 
 #endif

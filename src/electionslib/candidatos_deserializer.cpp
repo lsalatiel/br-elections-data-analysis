@@ -52,9 +52,7 @@ std::map<int, Partido> processa_candidatos(Cargo cargo, const std::string &file_
                 std::string token;
                 std::cout << "\n\n\n\n";
                 while(std::getline(line_stream, token, ';')) {
-                    //token.replace("\"", "");
                 	token = token.substr(1, token.size() - 2);
-                	std::cout << token << std::endl;
                     switch(i++) {
                         case 13:
                             /* codigo_cargo = std::stoi(token); */
@@ -126,18 +124,21 @@ std::map<int, Partido> processa_candidatos(Cargo cargo, const std::string &file_
                     }
                 }
 
-                /* std::string nome, nome_urna, data_nascimento, sigla; */
-                /* int numero, numero_partido, numero_federacao; */
-                /* Candidato::Genero genero; */
-                /* Candidato::SituacaoCandidato situacao_candidato; */
-                /* Candidato::SituacaoTurno situacao_turno; */
-                /* Candidato::TipoDestinoVoto tipo_destino_voto; */
-                /* Cargo cargo_candidato; */
+                /* std::cout << nome << std::endl; */
+                /* std::cout << nome_urna << std::endl; */
+                /* std::cout << data_nascimento << std::endl; */
+                /* std::cout << sigla << std::endl; */
+                /* std::cout << numero << std::endl; */
+                /* std::cout << numero_partido << std::endl; */
+                /* std::cout << numero_federacao << std::endl; */
+                /* std::cout << (int)genero << std::endl; */
+                /* std::cout << (int)situacao_candidato << std::endl; */
+                /* std::cout << (int)situacao_turno << std::endl; */
+                /* std::cout << (int)tipo_destino_voto << std::endl; */
+                /* std::cout << (int)cargo_candidato << std::endl; */
 
-                std::cout << nome << nome_urna << sigla << numero << numero_partido << numero_federacao << (int)cargo_candidato;
-
-                /* if(!partidos.count(numero_partido)) */
-                /*     partidos.emplace(numero_partido, Partido(sigla, numero_partido)); */
+                if(partidos.find(numero_partido) == partidos.end())
+                    partidos.insert(std::pair<int, Partido>(numero_partido, Partido(sigla, numero_partido)));
                 
                 std::tm data = {};
                 std::istringstream iss(data_nascimento);
@@ -146,15 +147,15 @@ std::map<int, Partido> processa_candidatos(Cargo cargo, const std::string &file_
                 data.tm_mon -= 1;
                 data.tm_year -= 1900;
 
-
-
-
                 if(cargo_candidato == cargo && (tipo_destino_voto == Candidato::TipoDestinoVoto::NOMINAL || tipo_destino_voto == Candidato::TipoDestinoVoto::LEGENDA)) {
                     Candidato c(nome, nome_urna, situacao_candidato, numero, numero_partido, numero_federacao, situacao_turno, genero, data, tipo_destino_voto);
-                    //partidos.at(numero_partido).add_candidato(c);
+                    partidos.at(numero_partido).add_candidato(c);
                     std::tm teste = c.getDataNascimento();
                     std::cout << "\nData lida: " << std::put_time(&teste, "%d/%m/%Y") << std::endl;
                 }
+
+            /*acho que funcuona sim
+tava comentado porque ainda nao tinha o add candidato*/
 
             } catch(std::exception &e){
                 e.what();

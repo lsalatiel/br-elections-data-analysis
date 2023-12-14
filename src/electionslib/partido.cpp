@@ -13,13 +13,14 @@ std::string Partido::get_sigla() const {
 }
 
 void Partido::add_candidato(Candidato &c) {
-    /* candidatos[c.get_numero_candidato()] = c; */
+    /* candidatos[c.get_numero_candidato()] = c; */    
+    candidatos.insert(std::pair<int, Candidato>(c.get_numero_candidato(), c));
 }
 
 Candidato &Partido::get_candidato(int numero_candidato) {
     /* if(candidatos.find(numero_candidato) == candidatos.end()) */
     /*     throw std::invalid_argument("Candidato não encontrado"); */
-    /* return candidatos[numero_candidato]; */
+    return candidatos[numero_candidato];
 }
 
 const std::vector<Candidato> Partido::get_candidato_vector() const {
@@ -56,5 +57,19 @@ const Candidato &Partido::get_candidato_mais_votado() const {
 }
 
 const Candidato &Partido::get_candidato_menos_votado() const {
+
+}
+
+void Partido::print_partido() {
+    std::cout << sigla << "\n" << numero << std::endl;
+    
+    for(const std::pair<int, std::string> x : map){
+        // std::cout << x.first << std::endl;
+        Candidato c = x.second;
+        c.print_candidato;
+        std::cout << x.second << std::endl;
+    } //ta aqui oq vc quer
+    // 1.84.2
+
 
 }

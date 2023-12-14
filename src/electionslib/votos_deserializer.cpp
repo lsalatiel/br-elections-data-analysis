@@ -1,4 +1,6 @@
 #include "include/votos_deserializer.h"
+#include "include/candidato.h"
+#include "include/partido.h"
 #include <fstream> // ifstream
 #include <sstream> // istringstream
 #include <map>     // map
@@ -31,18 +33,24 @@ static void processa_votos(std::map<int, Partido> partidos, int cargo, std::stri
         getline(input, line);
 
         int codigo_cargo, numero_candidato, votos;
+        Cargo cargo_candidato;
 
-        while(getline(input, line)){
+        while(std::getline(input, line)){
             try{
             	line = __iso_8859_1_to_utf8(line);
                 std::istringstream lineStream(line);
                 int i = 0;
                 std::string token;
 
-                while(getline(lineStream, token, ';')){
+                while(std::getline(lineStream, token, ';')){
+                    //token = token.substr(1, token.size() - 2); //ATIVAR CASO ESTEJAM OS VALORES ENTRE ASPAS
                     switch (i++){
                         case 17:
-                            codigo_cargo = stoi(token);
+                            if(std::stoi(token) == 6) {
+                                cargo_candidato = Cargo::FEDERAL;
+                                break;
+                            }
+                            cargo_candidato = Cargo::ESTADUAL;
                             break;
                         case 19:
                             numero_candidato = std::stoi(token);
@@ -58,8 +66,10 @@ static void processa_votos(std::map<int, Partido> partidos, int cargo, std::stri
                 if(numero_candidato == 95 || numero_candidato == 96 || numero_candidato == 97 || numero_candidato == 98)
                     continue;
                 
-                if(codigo_cargo == cargo){
-                    //TO DO
+                if(cargo_candidato == cargo){
+                    if(partidos.find(numero_partido) == partidos.end())
+                       // partidos[numeroCandidato].addVotosLegenda(votos);
+                    
                 }
                 
             }catch(std::exception &e){
