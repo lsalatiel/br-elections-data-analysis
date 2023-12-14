@@ -9,6 +9,6 @@
 
 enum class Cargo { FEDERAL = 6, ESTADUAL = 7 };
 
-std::map<int, Partido> &processa_candidatos(int cargo, const std::string &filePath);
+std::map<int, Partido> processa_candidatos(Cargo cargo, const std::string &file_path);
 
 #endif

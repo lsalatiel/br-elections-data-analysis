@@ -6,27 +6,37 @@
 #include <map>     // map
 #include <string>
 
-std::map<int, Partido> &processa_candidatos(int cargo, std::string &filePath){
+std::map<int, Partido> processa_candidatos(Cargo cargo, const std::string &file_path){
     std::map<int, Partido> partidos;
     try {
-        std::ifstream input(filePath);
+        std::ifstream input(file_path);
         std::string line;
-        getline(input, line);
+        std::getline(input, line);
 
-        std::string nome, nome_urna, numero, data_nascimento, nome_tipo_dest_voto, sigla;
-        int codigo_situacao_candidato, numero, numero_partido, codigo_cargo, numero_federacao, codigo_situacao_turno;
-        bool genero;
+        std::string nome, nome_urna, data_nascimento, sigla;
+        int numero, numero_partido, numero_federacao;
+        Candidato::Genero genero;
+        Candidato::SituacaoCandidato situacao_candidato;
+        Candidato::SituacaoTurno situacao_turno;
+        Candidato::TipoDestinoVoto tipo_destino_voto;
+        Cargo cargo_candidato;
 
-        while(getline(input, line)){
+        while(std::getline(input, line)) {
             try {
-                std::istringstream lineStream(line);
+                std::istringstream line_stream(line);
                 int i = 0;
                 std::string token;
-
-                while(getline(lineStream, token, ';')) {
-                    switch(i++){
+                std::cout << "\n\n\n\n";
+                while(std::getline(line_stream, token, ';')) {
+                    std::cout << token << std::endl;
+                    switch(i++) {
                         case 13:
-                            codigo_cargo = std::stoi(token);
+                            /* codigo_cargo = std::stoi(token); */
+                            if(std::stoi(token) == 6) {
+                                cargo_candidato = Cargo::FEDERAL;
+                                break;
+                            }
+                            cargo_candidato = Cargo::ESTADUAL;
                             break;
                         case 16:
                             numero = std::stoi(token);
@@ -47,32 +57,66 @@ std::map<int, Partido> &processa_candidatos(int cargo, std::string &filePath){
                             numero_federacao = std::stoi(token);
                             break;
                         case 42:
-                            data_nascimento = token.replace(",", "/");
+                            /* data_nascimento = token.replace(",", "/"); */
                             break;
                         case 45:
-                            genero = std::stoi(token);
+                            /* genero = std::stoi(token); */
+                            if(std::stoi(token) == 2) {
+                                genero = Candidato::Genero::FEMININO;
+                                break;
+                            }
+                            genero = Candidato::Genero::MASCULINO;
                             break;
                         case 56:
-                            codigo_situacao_turno = std::stoi(token);
+                            /* codigo_situacao_turno = std::stoi(token); */
+                            if(std::stoi(token) == 2 || std::stoi(token) == 3) {
+                                situacao_turno = Candidato::SituacaoTurno::ELEITO;
+                                break;
+                            }
+                            situacao_turno = Candidato::SituacaoTurno::NAO_ELEITO;
                             break;
                         case 67:
-                            nome_tipo_dest_voto = token;
+                            /* nome_tipo_dest_voto = token; */
+                            if(token == "Válido (legenda)") {
+                                tipo_destino_voto = Candidato::TipoDestinoVoto::LEGENDA;
+                                break;
+                            }
+                            if(token == "Válido") {
+                                tipo_destino_voto = Candidato::TipoDestinoVoto::NOMINAL;
+                                break;
+                            }
+                            tipo_destino_voto = Candidato::TipoDestinoVoto::NULO;
                             break;
                         case 68:
-                            codigo_situacao_candidato = std::stoi(token);
+                            /* codigo_situacao_candidato = std::stoi(token); */
+                            if(std::stoi(token) == 2 || std::stoi(token) == 16) {
+                                situacao_candidato = Candidato::SituacaoCandidato::DEFERIDO;
+                                break;
+                            }
+                            situacao_candidato = Candidato::SituacaoCandidato::INDEFERIDO;
                             break;
                         default:
                             break;
                     }
                 }
 
-                if(!partidos.count(numero_partido))
-                    partidos.emplace(numero_partido, Partido(sigla, numero_partido));
+                /* std::string nome, nome_urna, data_nascimento, sigla; */
+                /* int numero, numero_partido, numero_federacao; */
+                /* Candidato::Genero genero; */
+                /* Candidato::SituacaoCandidato situacao_candidato; */
+                /* Candidato::SituacaoTurno situacao_turno; */
+                /* Candidato::TipoDestinoVoto tipo_destino_voto; */
+                /* Cargo cargo_candidato; */
+
+                std::cout << nome << nome_urna << sigla << numero << numero_partido << numero_federacao << (int)cargo_candidato;
+
+                /* if(!partidos.count(numero_partido)) */
+                /*     partidos.emplace(numero_partido, Partido(sigla, numero_partido)); */
                 
                 //TO DO: processar a data
 
-                if(codigo_cargo == cargo && (nome_tipo_dest_voto == "Válido" || nome_tipo_dest_voto == "Válido (legenda)")) {
-                    Candidato c(nome, nome_urna, codigo_situacao_candidato, numero, numero_partido, numero_federacao, codigo_situacao_turno, genero, nome_tipo_dest_voto, 0);
+                if(cargo_candidato == cargo && (tipo_destino_voto == Candidato::TipoDestinoVoto::NOMINAL || tipo_destino_voto == Candidato::TipoDestinoVoto::LEGENDA)) {
+                    Candidato c(nome, nome_urna, situacao_candidato, numero, numero_partido, numero_federacao, situacao_turno, genero, tipo_destino_voto);
                     //partidos.at(numero_partido).add_candidato(c);
                 }
 
