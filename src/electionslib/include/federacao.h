@@ -10,7 +10,7 @@ class Federacao {
     std::vector<Partido> partidos;
 
     public:
-        Federacao();
+        Federacao() {};
         Federacao(int numero);
 
         int get_numero() const;
