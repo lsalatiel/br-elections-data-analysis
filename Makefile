@@ -1,8 +1,8 @@
 CC =g++
 CFLAGS = -Wall -g
 EXEC = main
-CPP = src/*.cpp
-CPPFLAGS = -std=c++20
+CPP = src/*.cpp src/electionslib/*.cpp
+CPPFLAGS = -std=c++17
 
 all:
 	$(CC) $(CPPFLAGS) $(CFLAGS) -o $(EXEC) $(CPP) 

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "electionslib/include/candidatos_deserializer.h"
+#include "electionslib/include/partido.h"
 #include "electionslib/include/votos_deserializer.h"
 #include "electionslib/include/candidato.h"
 
@@ -21,6 +22,8 @@ int main(int argc, char** argv) {
 
     std::string candidatos_file_path = argv[2];
     std::string votacao_file_path = argv[3];
+
+    std::map<int, Partido> partidos = processa_candidatos(cargo, candidatos_file_path);
 
     return 0;
 }

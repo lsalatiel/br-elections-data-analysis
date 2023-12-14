@@ -7,7 +7,7 @@
 class Candidato {
     public:
         enum class Genero { MASCULINO, FEMININO };
-        enum class TipoDestinoVoto { NOMINAL, LEGENDA };
+        enum class TipoDestinoVoto { NOMINAL, LEGENDA, NULO };
         enum class SituacaoCandidato { DEFERIDO, INDEFERIDO };
         enum class SituacaoTurno { ELEITO, NAO_ELEITO };
 
@@ -27,7 +27,7 @@ class Candidato {
     public:
         Candidato();
         Candidato(std::string nome, std::string nome_urna, Candidato::SituacaoCandidato codigo_situacao_candidato, int numero, int numero_partido, int numero_federacao,
-                Candidato::SituacaoTurno codigo_situacao_turno, Candidato::Genero genero, Candidato::TipoDestinoVoto nome_tipo_dest_votos, int total_votos);
+                Candidato::SituacaoTurno codigo_situacao_turno, Candidato::Genero genero, Candidato::TipoDestinoVoto nome_tipo_dest_votos);
 
         int get_numero_federacao() const;
 
