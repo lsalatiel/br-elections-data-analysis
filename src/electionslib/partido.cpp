@@ -13,13 +13,13 @@ std::string Partido::get_sigla() const {
 }
 
 void Partido::add_candidato(Candidato &c) {
-    candidatos[c.get_numero_candidato()] = c;
+    /* candidatos[c.get_numero_candidato()] = c; */
 }
 
 Candidato &Partido::get_candidato(int numero_candidato) {
     /* if(candidatos.find(numero_candidato) == candidatos.end()) */
     /*     throw std::invalid_argument("Candidato não encontrado"); */
-    return candidatos[numero_candidato];
+    /* return candidatos[numero_candidato]; */
 }
 
 const std::vector<Candidato> Partido::get_candidato_vector() const {

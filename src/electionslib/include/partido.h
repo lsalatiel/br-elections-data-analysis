@@ -11,7 +11,7 @@ class Partido {
     int numero;
     int votos_nominais;
     int votos_legenda;
-    std::map<int, Candidato &> candidatos;
+    std::map<int, Candidato> candidatos;
 
     public:
         Partido();
