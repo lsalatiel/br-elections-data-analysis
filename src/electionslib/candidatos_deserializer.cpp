@@ -5,6 +5,7 @@
 #include <sstream> // istringstream
 #include <map>     // map
 #include <string>
+#include <iomanip>
 
 
 std::string _iso_8859_1_to_utf8(std::string &str){
@@ -138,22 +139,28 @@ std::map<int, Partido> processa_candidatos(Cargo cargo, const std::string &file_
                 /* if(!partidos.count(numero_partido)) */
                 /*     partidos.emplace(numero_partido, Partido(sigla, numero_partido)); */
                 
-                std::tm data;
+                std::tm data = {};
                 std::istringstream iss(data_nascimento);
-                iss >> data.tm_mday >> data.tm_mon >> data.tm_year;
+                char delimiter;
+                iss >> data.tm_mday >> delimiter >> data.tm_mon >> delimiter >> data.tm_year;
+                data.tm_mon -= 1;
+                data.tm_year -= 1900;
 
-                std::cout << "\nDia: " << data.tm_mday << " ,Mês: " << data.tm_mon + 1 << " ,Ano: " << data.tm_year + 1900 << std::endl;
+
 
 
                 if(cargo_candidato == cargo && (tipo_destino_voto == Candidato::TipoDestinoVoto::NOMINAL || tipo_destino_voto == Candidato::TipoDestinoVoto::LEGENDA)) {
-                    Candidato c(nome, nome_urna, situacao_candidato, numero, numero_partido, numero_federacao, situacao_turno, genero, tipo_destino_voto);
+                    Candidato c(nome, nome_urna, situacao_candidato, numero, numero_partido, numero_federacao, situacao_turno, genero, data, tipo_destino_voto);
                     //partidos.at(numero_partido).add_candidato(c);
+                    std::tm teste = c.getDataNascimento();
+                    std::cout << "\nData lida: " << std::put_time(&teste, "%d/%m/%Y") << std::endl;
                 }
 
             } catch(std::exception &e){
                 e.what();
             }
         }
+
     } catch(std::exception &e){
         e.what();
     }

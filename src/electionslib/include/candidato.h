@@ -22,13 +22,14 @@ class Candidato {
         SituacaoTurno codigo_situacao_turno; // 2 ou 3 = eleito
         Genero genero;
         /* std::chrono::year_month_day data_nascimento; */
+        std::tm data_nascimento;
         TipoDestinoVoto nome_tipo_dest_votos; // nominal ou legenda
         int total_votos;
 
     public:
         Candidato();
         Candidato(std::string nome, std::string nome_urna, Candidato::SituacaoCandidato codigo_situacao_candidato, int numero, int numero_partido, int numero_federacao,
-                Candidato::SituacaoTurno codigo_situacao_turno, Candidato::Genero genero, Candidato::TipoDestinoVoto nome_tipo_dest_votos);
+                Candidato::SituacaoTurno codigo_situacao_turno, Candidato::Genero genero, std::tm data_nascimento, Candidato::TipoDestinoVoto nome_tipo_dest_votos);
 
         int get_numero_federacao() const;
 
@@ -42,7 +43,7 @@ class Candidato {
 
         bool is_eleito() const;
 
-        /* LocalDate getDataNascimento() const; */
+        std::tm getDataNascimento() const;
 
         std::string get_nome_na_urna() const;
 
