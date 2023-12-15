@@ -9,4 +9,8 @@
 
 std::vector<Candidato> get_candidatos_eleitos_ordenados(std::map<int, Partido> &partidos);
 
+std::vector<Candidato> get_candidatos_mais_votados(std::map<int, Partido> &partidos);
+
+void print_partidos_com_votos(std::map<int, Partido> &partidos);
+
 #endif

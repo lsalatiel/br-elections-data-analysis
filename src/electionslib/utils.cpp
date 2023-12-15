@@ -44,3 +44,58 @@ Cargo update_cargo(const std::string &cmp, const std::string &federal, const std
 
     return cargo;
 }
+
+
+std::vector<Federacao> cria_federacoes(std::map<int, Partido> &partidos) {
+    std::vector<Federacao> federacoes;
+
+    for(const std::pair<int, Partido> x : partidos){
+		Partido p = x.second;
+        std::vector<Candidato> candidatos = p.get_candidato_vector();
+        
+		if(candidatos.empty()) continue;
+
+		const Candidato &c = candidatos.front();
+		
+		if(c.get_numero_federacao() != -1){
+			bool federacaoExiste = false;
+			for(Federacao f : federacoes){
+				if(f.get_numero() == c.get_numero_federacao()){
+					f.add_partido(p);
+					federacaoExiste = true;
+					break;
+				}
+			}
+
+			if(!federacaoExiste){
+				Federacao f(c.get_numero_federacao());
+				f.add_partido(p);
+				federacoes.push_back(f);
+			}
+		}
+    }
+
+    return federacoes;
+}
+
+void print_candidatos(const std::vector<Candidato>& candidatos, const std::vector<Federacao>& federacoes, const std::map<int, Partido>& partidos) {
+	int i = 1;
+	for(const Candidato &c : candidatos) {
+		std::cout << i << " - ";
+		for(const Federacao &f : federacoes) {
+			if(f.get_numero() == c.get_numero_federacao()) {
+				std::cout << "*";
+				break;
+			}
+		}
+
+		std::string numero_partido = std::to_string(c.get_numero_candidato()).substr(0, 2);
+		auto it = partidos.find(std::stoi(numero_partido));
+		const Partido &p = it->second;
+
+		//std::cout << c.print_candidato();
+		std::cout << "" << c.get_nome_na_urna();
+		std::cout << " (" << p.get_sigla() << ", " << c.get_quantidade_votos() << " votos)" << std::endl;
+		i++;
+	}
+}

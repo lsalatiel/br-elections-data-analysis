@@ -22,8 +22,8 @@ void Partido::add_candidato(Candidato &c) {
 }
 
 Candidato &Partido::get_candidato(int numero_candidato) {
-    /* if(candidatos.find(numero_candidato) == candidatos.end()) */
-    /*     throw std::invalid_argument("Candidato não encontrado"); */
+    if(candidatos.find(numero_candidato) == candidatos.end()) 
+        throw std::invalid_argument("Candidato não encontrado"); 
     return candidatos[numero_candidato];
 }
 
@@ -88,5 +88,8 @@ void Partido::print_partido() const {
         c.print_candidato();
         std::cout << std::endl;
     }
+}
 
+static bool comparador_votos(const Partido& p1, const Partido& p2){
+        return p1.get_votos_totais() > p2.get_votos_totais();
 }

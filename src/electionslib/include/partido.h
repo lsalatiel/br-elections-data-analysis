@@ -43,6 +43,8 @@ class Partido {
         const Candidato &get_candidato_menos_votado() const;
 
         void print_partido() const;
+
+        static bool comparador_votos(const Partido& p1, const Partido& p2);
 };
 
 #endif
