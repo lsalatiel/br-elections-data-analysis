@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -Wall -g
-EXEC = main
+EXEC = deputados
 SRC_DIR = src
 OBJ_DIR = obj
 CPP = $(wildcard $(SRC_DIR)/*.cpp) $(wildcard $(SRC_DIR)/electionslib/*.cpp)
@@ -18,3 +18,9 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 
 clean:
 	rm -rf $(OBJ_DIR) $(EXEC)
+runfederal:
+	make
+	./deputados --federal candidatos.csv votacao.csv 02/10/2022
+runestadual:
+	make
+	./deputados --federal candidatos.csv votacao.csv 02/10/2022
