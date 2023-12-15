@@ -17,7 +17,6 @@ const std::string &Partido::get_sigla() const {
 }
 
 void Partido::add_candidato(Candidato &c) {
-    /* candidatos[c.get_numero_candidato()] = c; */    
     candidatos.insert(std::pair<int, Candidato>(c.get_numero_candidato(), c));
 }
 
@@ -57,38 +56,18 @@ void Partido::add_votos_nominais(int qtd_votos) {
 }
 
 const Candidato &Partido::get_candidato_mais_votado() const {
-    // const Candidato mais_votado = candidatos.begin()->second;
-    // int key = -1;
+    Candidato mais_votado = candidatos.begin()->second;
+    int key = candidatos.begin()->first;
 
-    // for(const std::pair<int, Candidato> x : candidatos){
-    //     const Candidato &c = x.second;
-    //     if(c.get_quantidade_votos() > mais_votado.get_quantidade_votos()) {
-    //         mais_votado = &c;
-    //         key = x.first;
-    //     }
-    // }
-
-    // // foi o jeito que eu pensei de conseguir retornar uma referencia (ง︡'-'︠)ง
-
-    // return candidatos.at(key);
-
-//TO DO 
-    //resolver esse problemão
-
-    const Candidato *mais_votado = nullptr; 
-
-    for(const auto &x : candidatos) {
-        const Candidato &c = x.second;
-
-        if (!mais_votado || c.get_quantidade_votos() > mais_votado->get_quantidade_votos())
-            mais_votado = &c;   
+    for(const std::pair<int, Candidato> x : candidatos){
+        Candidato c = x.second;
+        if(c.get_quantidade_votos() > mais_votado.get_quantidade_votos()) {
+            mais_votado = c;
+            key = x.first;
+        }
     }
 
-    // if(!mais_votado){
-    //     throw std::logic_error("Não há candidatos no partido");
-    // }
-
-    return *mais_votado;
+    return candidatos.at(key);
 }
 
 const Candidato &Partido::get_candidato_menos_votado() const {

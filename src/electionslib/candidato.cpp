@@ -1,7 +1,7 @@
 #include "include/candidato.h"
 
 Candidato::Candidato(const std::string &nome, const std::string &nome_urna, Candidato::SituacaoCandidato codigo_situacao_candidato, int numero, int numero_partido, int numero_federacao,
-        Candidato::SituacaoTurno codigo_situacao_turno, Candidato::Genero genero, std::tm data_nascimento, Candidato::TipoDestinoVoto nome_tipo_dest_votos) :
+        Candidato::SituacaoTurno codigo_situacao_turno, Candidato::Genero genero, std::tm &data_nascimento, Candidato::TipoDestinoVoto nome_tipo_dest_votos) :
             nome(nome),
             nome_urna(nome_urna),
             codigo_situacao_candidato(codigo_situacao_candidato),
@@ -42,7 +42,7 @@ Candidato::TipoDestinoVoto Candidato::get_nome_tipo_dest_votos() const {
     return nome_tipo_dest_votos;
 }
 
-std::tm Candidato::get_data_nascimento() const{
+const std::tm &Candidato::get_data_nascimento() const{
 	return data_nascimento;
 }
 

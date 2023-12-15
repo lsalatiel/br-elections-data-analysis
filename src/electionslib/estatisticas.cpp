@@ -2,6 +2,16 @@
 #include <bits/stdc++.h>
 #include "include/utils.h"
 
+bool __compare_candidato(const Candidato &c1, const Candidato &c2) {
+    if(c1.get_quantidade_votos() == c2.get_quantidade_votos()) {
+        std::tm c1_date = c1.get_data_nascimento();
+        std::tm c2_date = c2.get_data_nascimento();
+        std::time_t time_diff = std::difftime(std::mktime(&c1_date), std::mktime(&c2_date));
+        return time_diff > 0;
+    }
+    return c1.get_quantidade_votos() > c2.get_quantidade_votos();
+}
+
 std::vector<Candidato> get_candidatos_eleitos_ordenados(std::map<int, Partido> &partidos) {
     std::vector<Candidato> candidatos_eleitos;
 
@@ -11,9 +21,10 @@ std::vector<Candidato> get_candidatos_eleitos_ordenados(std::map<int, Partido> &
                 candidatos_eleitos.push_back(c);       
         }
     }
-    std::sort(candidatos_eleitos.begin(), candidatos_eleitos.end(), [](const Candidato &c1, const Candidato &c2) {
-        return c1.get_quantidade_votos() > c2.get_quantidade_votos();
-    }); //tem que verificar a data de nascimento?
+    /* std::sort(candidatos_eleitos.begin(), candidatos_eleitos.end(), [](const Candidato &c1, const Candidato &c2) { */
+    /*     return c1.get_quantidade_votos() > c2.get_quantidade_votos(); */
+    /* }); */
+    std::sort(candidatos_eleitos.begin(), candidatos_eleitos.end(), __compare_candidato);
 
     return candidatos_eleitos;
 }
@@ -32,9 +43,7 @@ std::vector<Candidato> get_candidatos_mais_votados(std::map<int, Partido> &parti
             candidatos_mais_votados.push_back(c); 
     }
 
-    std::sort(candidatos_mais_votados.begin(), candidatos_mais_votados.end(), [](const Candidato &c1, const Candidato &c2) {
-        return c1.get_quantidade_votos() > c2.get_quantidade_votos();
-    });
+    std::sort(candidatos_mais_votados.begin(), candidatos_mais_votados.end(), __compare_candidato);
 
     return candidatos_mais_votados;
 }
@@ -48,18 +57,13 @@ std::vector<Candidato> __get_intersection(std::vector<Candidato> v1, std::vector
     // i love cppreference <3
     std::vector<Candidato> v3;
 
-    std::sort(v1.begin(), v1.end(), [](const Candidato &c1, const Candidato &c2) {
-        return c1.get_quantidade_votos() > c2.get_quantidade_votos();
-    });
-    std::sort(v2.begin(), v2.end(), [](const Candidato &c1, const Candidato &c2) {
-        return c1.get_quantidade_votos() > c2.get_quantidade_votos();
-    });
+    std::sort(v1.begin(), v1.end(), __compare_candidato);
+
+    std::sort(v2.begin(), v2.end(), __compare_candidato);
 
     std::set_intersection(v1.begin(),v1.end(),
                           v2.begin(),v2.end(),
-                          back_inserter(v3), [](const Candidato &c1, const Candidato &c2) {
-                              return c1.get_quantidade_votos() > c2.get_quantidade_votos();
-                          });
+                          back_inserter(v3), __compare_candidato);
     return v3;
 }
 
@@ -74,12 +78,9 @@ void print_candidatos_eleitos_majoritaria(std::vector<Candidato> &candidatos_mai
     std::set_difference(
             candidatos_mais_votados_em_vagas.begin(), candidatos_mais_votados_em_vagas.end(),
             intersection.begin(), intersection.end(),
-            std::back_inserter(candidatos_eleitos_majoritaria), [](const Candidato &c1, const Candidato &c2) {
-                return c1.get_quantidade_votos() > c2.get_quantidade_votos();
-            }
-            );
+            std::back_inserter(candidatos_eleitos_majoritaria), __compare_candidato); 
 
-    // TODO: FALTA DAR SORT E MUDAR A FUNCAO LAMBDA AI DE CIMA PRA FUNCAO DE ORDENAR CORRETA
+    std::sort(candidatos_eleitos_majoritaria.begin(), candidatos_eleitos_majoritaria.end(), __compare_candidato);
 
     for(auto &c : candidatos_eleitos_majoritaria) {
         int i = 0;
@@ -110,16 +111,9 @@ void print_candidatos_eleitos_proporcional(std::vector<Candidato> &candidatos_ma
     std::set_difference(
             candidatos_eleitos.begin(), candidatos_eleitos.end(),
             intersection.begin(), intersection.end(),
-            std::back_inserter(candidatos_eleitos_proporcional), [](const Candidato &c1, const Candidato &c2) {
-                return c1.get_quantidade_votos() > c2.get_quantidade_votos();
-            }
-            );
+            std::back_inserter(candidatos_eleitos_proporcional), __compare_candidato);
 
-    std::sort(candidatos_eleitos_proporcional.begin(), candidatos_eleitos_proporcional.end(), [](const Candidato &c1, const Candidato &c2) {
-        return c1.get_quantidade_votos() > c2.get_quantidade_votos();
-    });
-
-    // TODO: FALTA MUDAR A FUNCAO LAMBDA AI DE CIMA PRA FUNCAO DE ORDENAR CORRETA
+    std::sort(candidatos_eleitos_proporcional.begin(), candidatos_eleitos_proporcional.end(), __compare_candidato);
     
     std::cout << "\nEleitos, que se beneficiaram do sistema proporcional:" << std::endl;
     std::cout << "(com sua posição no ranking de mais votados)" << std::endl;
@@ -147,18 +141,18 @@ void print_candidatos_eleitos_proporcional(std::vector<Candidato> &candidatos_ma
 
 void print_partidos_com_votos(std::map<int, Partido> &partidos) {
     std::cout << "\nVotação dos partidos e número de candidatos eleitos:" << std::endl;
-    std::vector<std::pair<int, Partido>> vector_partidos = ordena_partidos_por_total_votos(partidos);
+    std::vector<Partido> vector_partidos = ordena_partidos_por_total_votos(partidos);
 
     int i = 1;
-    for(const auto& [key, value] : vector_partidos) { 
+    for(const auto& p : vector_partidos) { 
         int qtd_eleitos = 0, qtd_votos_nominais = 0, qtd_votos_legenda = 0;
 
         std::cout << i << " - ";
-        std::cout << value.get_sigla() << " - " << value.get_numero() << ", ";
-        qtd_votos_legenda = value.get_votos_legenda();
-        qtd_votos_nominais = value.get_votos_nominais();
+        std::cout << p.get_sigla() << " - " << p.get_numero() << ", ";
+        qtd_votos_legenda = p.get_votos_legenda();
+        qtd_votos_nominais = p.get_votos_nominais();
 
-        for(auto& c : value.get_candidato_vector()) {
+        for(auto& c : p.get_candidato_vector()) {
             if (c.is_eleito()) qtd_eleitos++;
         }
 
@@ -184,17 +178,15 @@ void print_partidos_com_votos(std::map<int, Partido> &partidos) {
 }
 
 void print_primeiro_ultimo_colocados(std::map<int, Partido> &partidos) {
-    std::vector<Partido> vector_partidos;
-    for(auto& it : partidos)
-        vector_partidos.push_back(it.second);
-    /* std::vector<std::pair<int, Partido>> vector_partidos = ordena_partidos_por_mais_votado(partidos); */
+    /* std::vector<Partido> vector_partidos; */
+    /* for(auto& it : partidos) */
+    /*     vector_partidos.push_back(it.second); */
+    std::vector<Partido> vector_partidos = ordena_partidos_por_mais_votado(partidos);
 
     int i = 1;
     for (auto &p : vector_partidos) {
         std::vector candidatos = p.get_candidato_vector(); 
-        std::sort(candidatos.begin(), candidatos.end(), [](const Candidato &c1, const Candidato &c2) {
-                return c1.get_quantidade_votos() > c2.get_quantidade_votos();
-        });
+        std::sort(candidatos.begin(), candidatos.end(), __compare_candidato);
 
         if(candidatos.empty()) continue;
 
@@ -304,34 +296,35 @@ void print_candidatos(const std::vector<Candidato>& candidatos, const std::vecto
 	}
 }
 
-std::vector<std::pair<int, Partido>> ordena_partidos_por_total_votos(const std::map<int, Partido>& partidos){
-	std::vector<std::pair<int, Partido>> vector_partidos;
+std::vector<Partido> ordena_partidos_por_total_votos(const std::map<int, Partido>& partidos){
+	std::vector<Partido> vector_partidos;
     for(auto& it : partidos)
-        vector_partidos.push_back(it);
+        vector_partidos.push_back(it.second);
 
     std::sort(vector_partidos.begin(), vector_partidos.end(), [](const auto& p1, const auto& p2) {
-        if(p1.second.get_votos_totais() == p2.second.get_votos_totais())
-            return p1.second.get_numero() < p2.second.get_numero();
+        if(p1.get_votos_totais() == p2.get_votos_totais())
+            return p1.get_numero() < p2.get_numero();
         else
-            return p1.second.get_votos_totais() > p2.second.get_votos_totais();
+            return p1.get_votos_totais() > p2.get_votos_totais();
     });
 
 	return vector_partidos;
 }
 
-// std::vector<std::pair<int, Partido>> ordena_partidos_por_mais_votado(const std::map<int, Partido>& partidos){
-// 	std::vector<std::pair<int, Partido>> vector_partidos;
-//     for(auto& it : partidos)
-//         vector_partidos.push_back(it);
+ std::vector<Partido> ordena_partidos_por_mais_votado(const std::map<int, Partido>& partidos){
+ 	std::vector<Partido> vector_partidos;
+     for(auto& it : partidos)
+         vector_partidos.push_back(it.second);
 
-//     std::sort(vector_partidos.begin(), vector_partidos.end(), [](const auto& p1, const auto& p2) {
-// 		const Candidato *c1 = p1.second.get_candidato_mais_votado();
-// 		if(!c1) return 1; //TO DO     
-// 		const Candidato *c2 = p2.second.get_candidato_mais_votado();
-// 		if(!c2) return -1;
+     std::sort(vector_partidos.begin(), vector_partidos.end(), [](const auto& p1, const auto& p2) {
+        if(p1.get_candidato_vector().empty()) return true;
+        if(p2.get_candidato_vector().empty()) return false;
 
-// 		return c1->get_quantidade_votos() > c2->get_quantidade_votos();
-//     });
+ 		const Candidato c1 = p1.get_candidato_mais_votado();
+ 		const Candidato c2 = p2.get_candidato_mais_votado();
 
-// 	return vector_partidos;
-// }
+ 		return c1.get_quantidade_votos() > c2.get_quantidade_votos();
+     });
+
+ 	return vector_partidos;
+}
