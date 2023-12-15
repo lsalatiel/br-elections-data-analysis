@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
 
     // sétimo relatorio...
     std::cout << "\nPrimeiro e último colocados de cada partido:" << std::endl;
-    //print_primeiro_ultimo_colocados(partidos);
+    print_primeiro_ultimo_colocados(partidos);
     //funcao ordena_partidos_por_total_votos em util.cpp
     //funcao get_candidato_mais_votado em partido.cpp
     //RESOLVER ESSAS DUAS para então o sétimo relatório funcionar!
