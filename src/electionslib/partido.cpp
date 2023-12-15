@@ -57,20 +57,38 @@ void Partido::add_votos_nominais(int qtd_votos) {
 }
 
 const Candidato &Partido::get_candidato_mais_votado() const {
-    Candidato mais_votado = candidatos.begin()->second;
-    int key = -1;
+    // const Candidato mais_votado = candidatos.begin()->second;
+    // int key = -1;
 
-    for(const std::pair<int, Candidato> x : candidatos){
-        Candidato c = x.second;
-        if(c.get_quantidade_votos() > mais_votado.get_quantidade_votos()) {
-            mais_votado = c;
-            key = x.first;
-        }
+    // for(const std::pair<int, Candidato> x : candidatos){
+    //     const Candidato &c = x.second;
+    //     if(c.get_quantidade_votos() > mais_votado.get_quantidade_votos()) {
+    //         mais_votado = &c;
+    //         key = x.first;
+    //     }
+    // }
+
+    // // foi o jeito que eu pensei de conseguir retornar uma referencia (ง︡'-'︠)ง
+
+    // return candidatos.at(key);
+
+//TO DO 
+    //resolver esse problemão
+
+    const Candidato *mais_votado = nullptr; 
+
+    for(const auto &x : candidatos) {
+        const Candidato &c = x.second;
+
+        if (!mais_votado || c.get_quantidade_votos() > mais_votado->get_quantidade_votos())
+            mais_votado = &c;   
     }
 
-    // foi o jeito que eu pensei de conseguir retornar uma referencia (ง︡'-'︠)ง
+    // if(!mais_votado){
+    //     throw std::logic_error("Não há candidatos no partido");
+    // }
 
-    return candidatos.at(key);
+    return *mais_votado;
 }
 
 const Candidato &Partido::get_candidato_menos_votado() const {
@@ -88,8 +106,4 @@ void Partido::print_partido() const {
         c.print_candidato();
         std::cout << std::endl;
     }
-}
-
-static bool comparador_votos(const Partido& p1, const Partido& p2){
-        return p1.get_votos_totais() > p2.get_votos_totais();
-}
+};

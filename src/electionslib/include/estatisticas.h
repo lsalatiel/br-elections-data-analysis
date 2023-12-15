@@ -13,4 +13,6 @@ std::vector<Candidato> get_candidatos_mais_votados(std::map<int, Partido> &parti
 
 void print_partidos_com_votos(std::map<int, Partido> &partidos);
 
+void print_primeiro_ultimo_colocados(std::map<int, Partido> &partidos);
+
 #endif

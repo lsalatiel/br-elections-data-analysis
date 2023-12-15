@@ -2,6 +2,7 @@
 #include <iostream>
 #include "include/utils.h"
 #include <stdint.h>
+#include <bits/stdc++.h>
 
 std::string iso_8859_1_to_utf8(std::string &str){
 	// adaptado de: https://stackoverflow.com/a/39884120 :-)
@@ -44,7 +45,6 @@ Cargo update_cargo(const std::string &cmp, const std::string &federal, const std
 
     return cargo;
 }
-
 
 std::vector<Federacao> cria_federacoes(std::map<int, Partido> &partidos) {
     std::vector<Federacao> federacoes;
@@ -98,4 +98,36 @@ void print_candidatos(const std::vector<Candidato>& candidatos, const std::vecto
 		std::cout << " (" << p.get_sigla() << ", " << c.get_quantidade_votos() << " votos)" << std::endl;
 		i++;
 	}
+}
+
+std::vector<std::pair<int, Partido>> ordena_partidos_por_total_votos(const std::map<int, Partido>& partidos){
+	std::vector<std::pair<int, Partido>> vector_partidos;
+    for(auto& it : partidos)
+        vector_partidos.push_back(it);
+
+    std::sort(vector_partidos.begin(), vector_partidos.end(), [](const auto& p1, const auto& p2) {
+        if(p1.second.get_votos_totais() == p2.second.get_votos_totais())
+            return p1.second.get_numero() < p2.second.get_numero();
+        else
+            return p1.second.get_votos_totais() > p2.second.get_votos_totais();
+    });
+
+	return vector_partidos;
+}
+
+std::vector<std::pair<int, Partido>> ordena_partidos_por_mais_votado(const std::map<int, Partido>& partidos){
+	std::vector<std::pair<int, Partido>> vector_partidos;
+    for(auto& it : partidos)
+        vector_partidos.push_back(it);
+
+    std::sort(vector_partidos.begin(), vector_partidos.end(), [](const auto& p1, const auto& p2) {
+		const Candidato *c1 = p1.second.get_candidato_mais_votado();
+		if(!c1) return 1; //TO DO     
+		const Candidato *c2 = p2.second.get_candidato_mais_votado();
+		if(!c2) return -1;
+
+		return c1->get_quantidade_votos() > c2->get_quantidade_votos();
+    });
+
+	return vector_partidos;
 }

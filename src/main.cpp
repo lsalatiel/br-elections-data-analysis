@@ -57,22 +57,12 @@ int main(int argc, char** argv) {
     std::cout << "\nVotação dos partidos e número de candidatos eleitos:" << std::endl;
     print_partidos_com_votos(partidos);
 
-    // // sétimo relatorio...
-    // System.out.println("\nPrimeiro e último colocados de cada partido:");
-    // Estatisticas.printPrimeiroUltimoColocados(new ArrayList<Partido>(partidos.values()));
-
-    // // oitavo relatorio...
-    // System.out.println("\nEleitos, por faixa etária (na data da eleição):");
-    // Estatisticas.printEleitosPorFaixaEtaria(candidatosEleitos, dataEleicao);
-
-    // // nono relatorio...
-    // System.out.println("\nEleitos, por gênero:");
-    // Estatisticas.printEleitosPorGenero(candidatosEleitos);
-    // System.out.println();
-
-    // // decimo relatorio...
-    // Estatisticas.printTotalVotos(partidos);
-    // System.out.println();
+            // sétimo relatorio...
+    std::cout << "\nPrimeiro e último colocados de cada partido:" << std::endl;
+    print_primeiro_ultimo_colocados(partidos);
+    //funcao ordena_partidos_por_total_votos em util.cpp
+    //funcao get_candidato_mais_votado em partido.cpp
+    //RESOLVER ESSAS DUAS para então o sétimo relatório funcionar!
     
 
 
