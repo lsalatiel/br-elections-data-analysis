@@ -15,20 +15,18 @@ class Candidato {
         enum class SituacaoTurno { ELEITO, NAO_ELEITO };
 
     private:
+        // changes in the organization of the attributes can cause warnings from the compiler
         std::string nome;
         std::string nome_urna;
-
+        SituacaoCandidato codigo_situacao_candidato; // 2 ou 16 = candidato deferido
         int numero;
         int numero_partido;
         int numero_federacao;
-        int total_votos;
-
-        std::tm data_nascimento;
-
         SituacaoTurno codigo_situacao_turno; // 2 ou 3 = eleito
         Genero genero;
-        SituacaoCandidato codigo_situacao_candidato; // 2 ou 16 = candidato deferido
+        std::tm data_nascimento;
         TipoDestinoVoto nome_tipo_dest_votos; // nominal ou legenda
+        int total_votos;
 
     public:
         Candidato() {};

@@ -57,24 +57,27 @@ void Partido::add_votos_nominais(int qtd_votos) {
 }
 
 const Candidato &Partido::get_candidato_mais_votado() const {
-    Candidato mais_votado;
-    int i = 0;
+    Candidato mais_votado = candidatos.begin()->second;
+    int key = -1;
+
     for(const std::pair<int, Candidato> x : candidatos){
         Candidato c = x.second;
-        if(!i++){
+        if(c.get_quantidade_votos() > mais_votado.get_quantidade_votos()) {
             mais_votado = c;
-            continue;
+            key = x.first;
         }
-
-        if(c.get_quantidade_votos() > mais_votado.get_quantidade_votos())
-            mais_votado = c;
     }
 
-    return mais_votado;
+    // foi o jeito que eu pensei de conseguir retornar uma referencia (ง︡'-'︠)ง
+
+    return candidatos.at(key);
 }
 
 const Candidato &Partido::get_candidato_menos_votado() const {
-    Candidato menos_votado;
+    /* Candidato menos_votado; */
+    // warning supression
+    return candidatos.begin()->second;
+    // TODO:
 }
 
 void Partido::print_partido() const {

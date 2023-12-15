@@ -6,7 +6,6 @@
 #include <sstream> // istringstream
 #include <map>     // map
 #include <string>
-#include <iomanip>
 
 std::map<int, Partido> processa_candidatos(Cargo cargo, const std::string &file_path){
     std::map<int, Partido> partidos;
@@ -103,8 +102,6 @@ std::map<int, Partido> processa_candidatos(Cargo cargo, const std::string &file_
                 if(cargo_candidato == cargo && (tipo_destino_voto == Candidato::TipoDestinoVoto::NOMINAL || tipo_destino_voto == Candidato::TipoDestinoVoto::LEGENDA)) {
                     Candidato c(nome, nome_urna, situacao_candidato, numero, numero_partido, numero_federacao, situacao_turno, genero, data, tipo_destino_voto);
                     partidos.at(numero_partido).add_candidato(c);
-                    std::tm teste = c.getDataNascimento();
-                    /* std::cout << "\nData lida: " << std::put_time(&teste, "%d/%m/%Y") << std::endl; */
                 }
 
             } catch(std::exception &e){

@@ -1,6 +1,5 @@
 #include "include/votos_deserializer.h"
 #include "include/candidato.h"
-#include "include/candidatos_deserializer.h"
 #include "include/partido.h"
 #include "include/utils.h"
 #include <fstream> // ifstream
@@ -13,7 +12,7 @@ void processa_votos(std::map<int, Partido> &partidos, Cargo cargo, std::string f
         std::string line;
         getline(input, line);
 
-        int codigo_cargo, numero_candidato, votos;
+        int  numero_candidato, votos;
         Cargo cargo_candidato;
 
         while(std::getline(input, line)) {
@@ -73,9 +72,4 @@ void processa_votos(std::map<int, Partido> &partidos, Cargo cargo, std::string f
     } catch(std::exception &e) {
         e.what();
     }
-
-    /* for(const std::pair<int, Partido> x : partidos) { */
-    /*     Partido p = x.second; */
-    /*     p.print_partido(); */
-    /* } */
 }

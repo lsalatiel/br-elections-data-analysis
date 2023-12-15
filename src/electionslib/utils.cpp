@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <iostream>
 #include "include/utils.h"
 #include <stdint.h>
@@ -21,4 +22,25 @@ std::string iso_8859_1_to_utf8(std::string &str){
 	}
 
 	return strOut;
+}
+
+void check_arguments(int argc, char **argv, int expected_argc, const std::string &usage) {
+    if(argc < expected_argc) {
+        std::cout << "Not enough arguments. Usage: " << argv[0] << " " << usage << std::endl;
+        exit(1);
+    }
+}
+
+Cargo update_cargo(const std::string &cmp, const std::string &federal, const std::string &estadual, const std::string &error_msg) {
+    Cargo cargo;
+    if(cmp == federal)
+        cargo = Cargo::FEDERAL;
+    else if(cmp == estadual)
+        cargo = Cargo::ESTADUAL;
+    else {
+        std::cout << error_msg << std::endl;
+        exit(1);
+    }
+
+    return cargo;
 }
