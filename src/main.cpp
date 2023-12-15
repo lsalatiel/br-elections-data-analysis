@@ -26,35 +26,17 @@ int main(int argc, char** argv) {
     processa_votos(partidos, cargo, votacao_file_path);
     std::vector federacoes = cria_federacoes(partidos);
 
-    /*
-    Espírito Santo:
-    Total de votos válidos:    2.084.430
-    Total de votos nominais:   2.008.658 (96,36%)
-    Total de votos de legenda: 75.772 (3,64%)
-    */
-    
     /* std::locale brasilLocale("pt_BR.UTF-8"); */
     /* std::cout.imbue(brasilLocale); */
     
     // primeiro e segundo relatorio...
     std::vector<Candidato> candidatos_eleitos = get_candidatos_eleitos_ordenados(partidos);
-    std::cout << "Número de vagas: " << candidatos_eleitos.size() << "\n" << std::endl;
-    std::string text = cargo == Cargo::FEDERAL ? "Deputados federais eleitos:" : "Deputados estaduais eleitos:";
-    std::cout<< text << std::endl;
-    print_candidatos(candidatos_eleitos, federacoes, partidos);
-
+    print_candidatos_eleitos_ordenados(candidatos_eleitos, partidos, cargo, federacoes);
 
     // terceiro relatorio...
-    std::cout << "\nCandidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):" << std::endl;
-    std::vector<Candidato> candidatos_mais_votados = get_candidatos_mais_votados(partidos);
-    std::vector<Candidato> candidatos_mais_votados_em_vagas(
-        candidatos_mais_votados.begin(), 
-        candidatos_mais_votados.begin() + std::min(candidatos_eleitos.size(), candidatos_mais_votados.size())
-    );
-    print_candidatos(candidatos_mais_votados_em_vagas, federacoes, partidos);
+    print_candidatos_mais_votados(candidatos_eleitos, partidos, federacoes);
 
     // sexto relatorio...
-    std::cout << "\nVotação dos partidos e número de candidatos eleitos:" << std::endl;
     print_partidos_com_votos(partidos);
 
     // sétimo relatorio...
@@ -66,13 +48,10 @@ int main(int argc, char** argv) {
     
 
     // oitavo relatorio...
-    std::cout << "\nEleitos, por faixa etária (na data da eleição):" << std::endl;
     print_eleitos_por_faixa_etaria(candidatos_eleitos, data_eleicao);
 
     // nono relatorio...
-    std::cout << "\nEleitos, por gênero:" << std::endl;
     print_eleitos_por_genero(candidatos_eleitos);
-    std::cout << std::endl;
 
     // decimo relatorio...
     print_total_votos(partidos);
@@ -80,3 +59,10 @@ int main(int argc, char** argv) {
     
     return 0;
 }
+
+/*
+   Espírito Santo:
+   Total de votos válidos:    2.084.430
+   Total de votos nominais:   2.008.658 (96,36%)
+   Total de votos de legenda: 75.772 (3,64%)
+   */

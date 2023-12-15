@@ -18,6 +18,13 @@ std::vector<Candidato> get_candidatos_eleitos_ordenados(std::map<int, Partido> &
     return candidatos_eleitos;
 }
 
+void print_candidatos_eleitos_ordenados(std::vector<Candidato> &candidatos_eleitos, std::map<int, Partido> &partidos, Cargo cargo, const std::vector<Federacao>& federacoes) {
+    std::cout << "Número de vagas: " << candidatos_eleitos.size() << "\n" << std::endl;
+    std::string text = cargo == Cargo::FEDERAL ? "Deputados federais eleitos:" : "Deputados estaduais eleitos:";
+    std::cout<< text << std::endl;
+    print_candidatos(candidatos_eleitos, federacoes, partidos);
+}
+
 std::vector<Candidato> get_candidatos_mais_votados(std::map<int, Partido> &partidos){
     std::vector<Candidato> candidatos_mais_votados;
     for(auto &[key, value] : partidos) {
@@ -32,7 +39,18 @@ std::vector<Candidato> get_candidatos_mais_votados(std::map<int, Partido> &parti
     return candidatos_mais_votados;
 }
 
+void print_candidatos_mais_votados(std::vector<Candidato> &candidatos_eleitos, std::map<int, Partido> &partidos, const std::vector<Federacao> &federacoes) {
+    std::cout << "\nCandidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):" << std::endl;
+    std::vector<Candidato> candidatos_mais_votados = get_candidatos_mais_votados(partidos);
+    std::vector<Candidato> candidatos_mais_votados_em_vagas(
+        candidatos_mais_votados.begin(), 
+        candidatos_mais_votados.begin() + std::min(candidatos_eleitos.size(), candidatos_mais_votados.size())
+    );
+    print_candidatos(candidatos_mais_votados_em_vagas, federacoes, partidos);
+}
+
 void print_partidos_com_votos(std::map<int, Partido> &partidos) {
+    std::cout << "\nVotação dos partidos e número de candidatos eleitos:" << std::endl;
     std::vector<std::pair<int, Partido>> vector_partidos = ordena_partidos_por_total_votos(partidos);
 
     int i = 1;
@@ -112,6 +130,7 @@ void print_partidos_com_votos(std::map<int, Partido> &partidos) {
 
 
 void print_eleitos_por_faixa_etaria(std::vector<Candidato> candidatos_eleitos, std::tm date) {
+    std::cout << "\nEleitos, por faixa etária (na data da eleição):" << std::endl;
     int menor30 = 0, menor40 = 0, menor50 = 0,  menor60 = 0, maior60 = 0;
     for(Candidato c : candidatos_eleitos) {
         std::tm data_nascimento = c.get_data_nascimento();
@@ -138,6 +157,7 @@ void print_eleitos_por_faixa_etaria(std::vector<Candidato> candidatos_eleitos, s
 }
 
  void print_eleitos_por_genero(std::vector<Candidato> candidatos_eleitos) {
+    std::cout << "\nEleitos, por gênero:" << std::endl;
     int qtd_masculino = 0, qtd_feminino = 0;
     for(Candidato c : candidatos_eleitos) {
         if(c.get_genero() == Candidato::Genero::MASCULINO)
