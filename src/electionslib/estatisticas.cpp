@@ -39,14 +39,110 @@ std::vector<Candidato> get_candidatos_mais_votados(std::map<int, Partido> &parti
     return candidatos_mais_votados;
 }
 
-void print_candidatos_mais_votados(std::vector<Candidato> &candidatos_eleitos, std::map<int, Partido> &partidos, const std::vector<Federacao> &federacoes) {
-    std::cout << "\nCandidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):" << std::endl;
-    std::vector<Candidato> candidatos_mais_votados = get_candidatos_mais_votados(partidos);
-    std::vector<Candidato> candidatos_mais_votados_em_vagas(
-        candidatos_mais_votados.begin(), 
-        candidatos_mais_votados.begin() + std::min(candidatos_eleitos.size(), candidatos_mais_votados.size())
-    );
+void print_candidatos_mais_votados(std::vector<Candidato> &candidatos_mais_votados_em_vagas, std::vector<Candidato> &candidatos_eleitos, std::map<int, Partido> &partidos, const std::vector<Federacao> &federacoes) {
+    std::cout << "Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):" << std::endl;
     print_candidatos(candidatos_mais_votados_em_vagas, federacoes, partidos);
+}
+
+std::vector<Candidato> __get_intersection(std::vector<Candidato> v1, std::vector<Candidato> v2){
+    // i love cppreference <3
+    std::vector<Candidato> v3;
+
+    std::sort(v1.begin(), v1.end(), [](const Candidato &c1, const Candidato &c2) {
+        return c1.get_quantidade_votos() > c2.get_quantidade_votos();
+    });
+    std::sort(v2.begin(), v2.end(), [](const Candidato &c1, const Candidato &c2) {
+        return c1.get_quantidade_votos() > c2.get_quantidade_votos();
+    });
+
+    std::set_intersection(v1.begin(),v1.end(),
+                          v2.begin(),v2.end(),
+                          back_inserter(v3), [](const Candidato &c1, const Candidato &c2) {
+                              return c1.get_quantidade_votos() > c2.get_quantidade_votos();
+                          });
+    return v3;
+}
+
+void print_candidatos_eleitos_majoritaria(std::vector<Candidato> &candidatos_mais_votados, std::vector<Candidato> &candidatos_mais_votados_em_vagas, std::vector<Candidato> &candidatos_eleitos,
+        std::map<int, Partido> &partidos, std::vector<Federacao> &federacoes) {
+    std::cout << "Teriam sido eleitos se a votação fosse majoritária, e não foram eleitos:" << std::endl;
+    std::cout << "(com sua posição no ranking de mais votados)" << std::endl;
+
+    std::vector<Candidato> intersection = __get_intersection(candidatos_eleitos, candidatos_mais_votados_em_vagas);
+
+    std::vector<Candidato> candidatos_eleitos_majoritaria;
+    std::set_difference(
+            candidatos_mais_votados_em_vagas.begin(), candidatos_mais_votados_em_vagas.end(),
+            intersection.begin(), intersection.end(),
+            std::back_inserter(candidatos_eleitos_majoritaria), [](const Candidato &c1, const Candidato &c2) {
+                return c1.get_quantidade_votos() > c2.get_quantidade_votos();
+            }
+            );
+
+    // TODO: FALTA DAR SORT E MUDAR A FUNCAO LAMBDA AI DE CIMA PRA FUNCAO DE ORDENAR CORRETA
+
+    for(auto &c : candidatos_eleitos_majoritaria) {
+        int i = 0;
+        for(auto &c2 : candidatos_mais_votados) {
+            i++;
+            if(c2.get_numero_candidato() == c.get_numero_candidato()) break;
+        }
+        std::cout << i << " - ";
+        for(auto &f : federacoes) {
+            if(f.get_numero() == c.get_numero_federacao()) {
+                std::cout << "*";
+                break;
+            }
+        }
+
+        int numero_partido = c.get_numero_partido();
+        auto it = partidos.find(numero_partido);
+        const Partido &p = it->second;
+        std::cout << c.get_nome_na_urna() << " (" << p.get_sigla() << ", " << c.get_quantidade_votos() << " votos)" << std::endl;
+    }
+}
+
+void print_candidatos_eleitos_proporcional(std::vector<Candidato> &candidatos_mais_votados, std::vector<Candidato> &candidatos_mais_votados_em_vagas, std::vector<Candidato> &candidatos_eleitos,
+        std::map<int, Partido> &partidos, std::vector<Federacao> &federacoes) {
+    std::vector<Candidato> intersection = __get_intersection(candidatos_eleitos, candidatos_mais_votados_em_vagas);
+
+    std::vector<Candidato> candidatos_eleitos_proporcional;
+    std::set_difference(
+            candidatos_eleitos.begin(), candidatos_eleitos.end(),
+            intersection.begin(), intersection.end(),
+            std::back_inserter(candidatos_eleitos_proporcional), [](const Candidato &c1, const Candidato &c2) {
+                return c1.get_quantidade_votos() > c2.get_quantidade_votos();
+            }
+            );
+
+    std::sort(candidatos_eleitos_proporcional.begin(), candidatos_eleitos_proporcional.end(), [](const Candidato &c1, const Candidato &c2) {
+        return c1.get_quantidade_votos() > c2.get_quantidade_votos();
+    });
+
+    // TODO: FALTA MUDAR A FUNCAO LAMBDA AI DE CIMA PRA FUNCAO DE ORDENAR CORRETA
+    
+    std::cout << "\nEleitos, que se beneficiaram do sistema proporcional:" << std::endl;
+    std::cout << "(com sua posição no ranking de mais votados)" << std::endl;
+
+    for(auto &c : candidatos_eleitos_proporcional) {
+        int i = 0;
+        for(auto &c2 : candidatos_mais_votados) {
+            i++;
+            if(c2.get_numero_candidato() == c.get_numero_candidato()) break;
+        }
+        std::cout << i << " - ";
+        for(auto &f : federacoes) {
+            if(f.get_numero() == c.get_numero_federacao()) {
+                std::cout << "*";
+                break;
+            }
+        }
+        
+        int numero_partido = c.get_numero_partido();
+        auto it = partidos.find(numero_partido);
+        const Partido &p = it->second;
+        std::cout << c.get_nome_na_urna() << " (" << p.get_sigla() << ", " << c.get_quantidade_votos() << " votos)" << std::endl;
+    }
 }
 
 void print_partidos_com_votos(std::map<int, Partido> &partidos) {

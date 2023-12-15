@@ -32,9 +32,27 @@ int main(int argc, char** argv) {
     // primeiro e segundo relatorio...
     std::vector<Candidato> candidatos_eleitos = get_candidatos_eleitos_ordenados(partidos);
     print_candidatos_eleitos_ordenados(candidatos_eleitos, partidos, cargo, federacoes);
+    std::cout << std::endl;
 
     // terceiro relatorio...
-    print_candidatos_mais_votados(candidatos_eleitos, partidos, federacoes);
+    std::vector<Candidato> candidatos_mais_votados = get_candidatos_mais_votados(partidos);
+    std::vector<Candidato> candidatos_mais_votados_em_vagas(
+        candidatos_mais_votados.begin(), 
+        candidatos_mais_votados.begin() + std::min(candidatos_eleitos.size(), candidatos_mais_votados.size())
+    );
+    print_candidatos_mais_votados(candidatos_mais_votados_em_vagas, candidatos_eleitos, partidos, federacoes);
+    std::cout << std::endl;
+
+    /* System.out.println("\nTeriam sido eleitos se a votação fosse majoritária, e não foram eleitos:"); */
+    /* System.out.println("(com sua posição no ranking de mais votados)"); */
+    /* Estatisticas.printCandidatosEleitosMajoritaria(candidatosEleitos, candidatosMaisVotados, candidatosMaisVotadosEmVagas, federacoes, partidos); */
+    print_candidatos_eleitos_majoritaria(candidatos_mais_votados, candidatos_mais_votados_em_vagas, candidatos_eleitos, partidos, federacoes);
+
+    // quinto relatorio...
+    /* System.out.println("\nEleitos, que se beneficiaram do sistema proporcional:"); */
+    /* System.out.println("(com sua posição no ranking de mais votados)"); */
+    /* Estatisticas.printCandidatosEleitosProporcional(candidatosEleitos, candidatosMaisVotados, candidatosMaisVotadosEmVagas, federacoes, partidos); */
+    print_candidatos_eleitos_proporcional(candidatos_mais_votados, candidatos_mais_votados_em_vagas, candidatos_eleitos, partidos, federacoes);
 
     // sexto relatorio...
     print_partidos_com_votos(partidos);

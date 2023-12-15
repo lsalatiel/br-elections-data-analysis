@@ -13,7 +13,7 @@ void print_candidatos_eleitos_ordenados(std::vector<Candidato> &candidatos_orden
 
 std::vector<Candidato> get_candidatos_mais_votados(std::map<int, Partido> &partidos);
 
-void print_candidatos_mais_votados(std::vector<Candidato> &candidatos_eleitos, std::map<int, Partido> &partidos, const std::vector<Federacao> &federacoes);
+void print_candidatos_mais_votados(std::vector<Candidato> &candidatos_mais_votados_em_vagas, std::vector<Candidato> &candidatos_eleitos, std::map<int, Partido> &partidos, const std::vector<Federacao> &federacoes);
 
 void print_partidos_com_votos(std::map<int, Partido> &partidos);
 
@@ -30,5 +30,11 @@ void print_candidatos(const std::vector<Candidato>& candidatos, const std::vecto
 std::vector<std::pair<int, Partido>> ordena_partidos_por_total_votos(const std::map<int, Partido>& partidos);
 
 std::vector<std::pair<int, Partido>> ordena_partidos_por_mais_votado(const std::map<int, Partido>& partidos);
+
+void print_candidatos_eleitos_majoritaria(std::vector<Candidato> &candidatos_mais_votados, std::vector<Candidato> &candidatos_mais_votados_em_vagas, std::vector<Candidato> &candidatos_eleitos,
+        std::map<int, Partido> &partidos, std::vector<Federacao> &federacoes);
+
+void print_candidatos_eleitos_proporcional(std::vector<Candidato> &candidatos_mais_votados, std::vector<Candidato> &candidatos_mais_votados_em_vagas, std::vector<Candidato> &candidatos_eleitos,
+        std::map<int, Partido> &partidos, std::vector<Federacao> &federacoes);
 
 #endif
