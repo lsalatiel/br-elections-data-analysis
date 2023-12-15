@@ -21,9 +21,6 @@ std::vector<Candidato> get_candidatos_eleitos_ordenados(std::map<int, Partido> &
                 candidatos_eleitos.push_back(c);       
         }
     }
-    /* std::sort(candidatos_eleitos.begin(), candidatos_eleitos.end(), [](const Candidato &c1, const Candidato &c2) { */
-    /*     return c1.get_quantidade_votos() > c2.get_quantidade_votos(); */
-    /* }); */
     std::sort(candidatos_eleitos.begin(), candidatos_eleitos.end(), __compare_candidato);
 
     return candidatos_eleitos;
@@ -178,9 +175,6 @@ void print_partidos_com_votos(std::map<int, Partido> &partidos) {
 }
 
 void print_primeiro_ultimo_colocados(std::map<int, Partido> &partidos) {
-    /* std::vector<Partido> vector_partidos; */
-    /* for(auto& it : partidos) */
-    /*     vector_partidos.push_back(it.second); */
     std::vector<Partido> vector_partidos = ordena_partidos_por_mais_votado(partidos);
 
     int i = 1;
@@ -204,12 +198,12 @@ void print_primeiro_ultimo_colocados(std::map<int, Partido> &partidos) {
         } while(!ultimo_colocado.is_candidatura_deferida());
 
         std::cout << i << " - ";
-        std::cout << p.get_sigla() << " - " << p.get_numero() << ", " << primeiro_colocado.get_nome_na_urna() << " (" << primeiro_colocado.get_numero_candidato() << ", ";
+        std::cout << p.get_sigla() << " - " << p.get_numero() << ", " << primeiro_colocado.get_nome_na_urna() << " (" << std::to_string(primeiro_colocado.get_numero_candidato()) << ", ";
 
         if(primeiro_colocado.get_quantidade_votos() > 1)
-            std::cout << primeiro_colocado.get_quantidade_votos() << " votos) / " << ultimo_colocado.get_nome_na_urna() << " (" << ultimo_colocado.get_numero_candidato() << ", ";
+            std::cout << primeiro_colocado.get_quantidade_votos() << " votos) / " << ultimo_colocado.get_nome_na_urna() << " (" << std::to_string(ultimo_colocado.get_numero_candidato()) << ", ";
         else
-            std::cout << primeiro_colocado.get_quantidade_votos() << " voto) / " << ultimo_colocado.get_nome_na_urna() << " (" << ultimo_colocado.get_numero_candidato() << ", ";
+            std::cout << primeiro_colocado.get_quantidade_votos() << " voto) / " << ultimo_colocado.get_nome_na_urna() << " (" << std::to_string(ultimo_colocado.get_numero_candidato()) << ", ";
 
         if(ultimo_colocado.get_quantidade_votos() > 1)
             std::cout << ultimo_colocado.get_quantidade_votos() << " votos)" << std::endl;
@@ -289,7 +283,6 @@ void print_candidatos(const std::vector<Candidato>& candidatos, const std::vecto
 		auto it = partidos.find(std::stoi(numero_partido));
 		const Partido &p = it->second;
 
-		//std::cout << c.print_candidato();
 		std::cout << "" << c.get_nome_na_urna();
 		std::cout << " (" << p.get_sigla() << ", " << c.get_quantidade_votos() << " votos)" << std::endl;
 		i++;

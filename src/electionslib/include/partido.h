@@ -16,7 +16,6 @@ class Partido {
     public:
         Partido() {};
         Partido(const std::string &sigla, int numero);
-        /* Partido(std::string &sigla, int &numero); */
 
         int get_numero() const;
 
@@ -39,8 +38,6 @@ class Partido {
         void add_votos_nominais(int qtdVotos);
 
         const Candidato &get_candidato_mais_votado() const;
-
-        const Candidato &get_candidato_menos_votado() const;
 
         void print_partido() const;
 };

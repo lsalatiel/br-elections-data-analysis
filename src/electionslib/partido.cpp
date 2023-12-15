@@ -59,7 +59,7 @@ const Candidato &Partido::get_candidato_mais_votado() const {
     Candidato mais_votado = candidatos.begin()->second;
     int key = candidatos.begin()->first;
 
-    for(const std::pair<int, Candidato> x : candidatos){
+    for(const std::pair<int, Candidato> x : candidatos) {
         Candidato c = x.second;
         if(c.get_quantidade_votos() > mais_votado.get_quantidade_votos()) {
             mais_votado = c;
@@ -68,13 +68,6 @@ const Candidato &Partido::get_candidato_mais_votado() const {
     }
 
     return candidatos.at(key);
-}
-
-const Candidato &Partido::get_candidato_menos_votado() const {
-    /* Candidato menos_votado; */
-    // warning supression
-    return candidatos.begin()->second;
-    // TODO:
 }
 
 void Partido::print_partido() const {

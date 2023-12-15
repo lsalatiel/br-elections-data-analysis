@@ -68,10 +68,3 @@ int main(int argc, char** argv) {
     
     return 0;
 }
-
-/*
-   Espírito Santo:
-   Total de votos válidos:    2.084.430
-   Total de votos nominais:   2.008.658 (96,36%)
-   Total de votos de legenda: 75.772 (3,64%)
-   */

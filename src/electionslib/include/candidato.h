@@ -32,8 +32,6 @@ class Candidato {
         Candidato() {};
         Candidato(const std::string &nome, const std::string &nome_urna, Candidato::SituacaoCandidato codigo_situacao_candidato, int numero, int numero_partido, int numero_federacao,
                 Candidato::SituacaoTurno codigo_situacao_turno, Candidato::Genero genero, std::tm &data_nascimento, Candidato::TipoDestinoVoto nome_tipo_dest_votos);
-        /* Candidato(std::string &nome, std::string &nome_urna, Candidato::SituacaoCandidato &codigo_situacao_candidato, int &numero, int &numero_partido, int &numero_federacao, */
-        /*         Candidato::SituacaoTurno &codigo_situacao_turno, Candidato::Genero &genero, std::tm &data_nascimento, Candidato::TipoDestinoVoto &nome_tipo_dest_votos); */
 
         int get_numero_federacao() const;
 

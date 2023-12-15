@@ -13,19 +13,6 @@ Candidato::Candidato(const std::string &nome, const std::string &nome_urna, Cand
 			data_nascimento(data_nascimento),
             nome_tipo_dest_votos(nome_tipo_dest_votos) {total_votos = 0;}
 
-/* Candidato::Candidato(std::string &nome, std::string &nome_urna, Candidato::SituacaoCandidato &codigo_situacao_candidato, int &numero, int &numero_partido, int &numero_federacao, */
-/*         Candidato::SituacaoTurno &codigo_situacao_turno, Candidato::Genero &genero, std::tm &data_nascimento, Candidato::TipoDestinoVoto &nome_tipo_dest_votos) : */
-/*             nome(nome), */
-/*             nome_urna(nome_urna), */
-/*             codigo_situacao_candidato(codigo_situacao_candidato), */
-/*             numero(numero), */
-/*             numero_partido(numero_partido), */
-/*             numero_federacao(numero_federacao), */
-/*             codigo_situacao_turno(codigo_situacao_turno), */
-/*             genero(genero), */
-/* 			data_nascimento(data_nascimento), */
-/*             nome_tipo_dest_votos(nome_tipo_dest_votos) {total_votos = 0;} */
-
 int Candidato::get_numero_federacao() const {
     return numero_federacao;
 }

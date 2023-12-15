@@ -6,7 +6,6 @@
 
 class Federacao {
     int numero;
-    /* std::map<int, Partido> partidos; */
     std::vector<Partido> partidos;
 
     public:
