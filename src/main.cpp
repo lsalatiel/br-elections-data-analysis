@@ -43,15 +43,10 @@ int main(int argc, char** argv) {
     print_candidatos_mais_votados(candidatos_mais_votados_em_vagas, candidatos_eleitos, partidos, federacoes);
     std::cout << std::endl;
 
-    /* System.out.println("\nTeriam sido eleitos se a votação fosse majoritária, e não foram eleitos:"); */
-    /* System.out.println("(com sua posição no ranking de mais votados)"); */
-    /* Estatisticas.printCandidatosEleitosMajoritaria(candidatosEleitos, candidatosMaisVotados, candidatosMaisVotadosEmVagas, federacoes, partidos); */
+    // quarto relatorio...
     print_candidatos_eleitos_majoritaria(candidatos_mais_votados, candidatos_mais_votados_em_vagas, candidatos_eleitos, partidos, federacoes);
 
     // quinto relatorio...
-    /* System.out.println("\nEleitos, que se beneficiaram do sistema proporcional:"); */
-    /* System.out.println("(com sua posição no ranking de mais votados)"); */
-    /* Estatisticas.printCandidatosEleitosProporcional(candidatosEleitos, candidatosMaisVotados, candidatosMaisVotadosEmVagas, federacoes, partidos); */
     print_candidatos_eleitos_proporcional(candidatos_mais_votados, candidatos_mais_votados_em_vagas, candidatos_eleitos, partidos, federacoes);
 
     // sexto relatorio...
