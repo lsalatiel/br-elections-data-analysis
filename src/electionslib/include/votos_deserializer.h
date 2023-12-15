@@ -7,6 +7,6 @@
 #include "partido.h"
 #include "federacao.h"
 
-// funcoes de deserializacao
+void processa_votos(std::map<int, Partido> &partidos, Cargo cargo, std::string filePath);
 
 #endif

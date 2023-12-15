@@ -26,7 +26,15 @@ int main(int argc, char** argv) {
     std::map<int, Partido> partidos = processa_candidatos(cargo, candidatos_file_path);
 
     for(const std::pair<int, Partido> x : partidos) {
-        Partido p = x.second;
+        const Partido &p = x.second;
+        p.print_partido();
+    }
+
+    /* std::cout << "LENDO VOTOS" << std::endl; */
+    processa_votos(partidos, cargo, votacao_file_path);
+
+    for(const std::pair<int, Partido> x : partidos) {
+        const Partido &p = x.second;
         p.print_partido();
     }
 

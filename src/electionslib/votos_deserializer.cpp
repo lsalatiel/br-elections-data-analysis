@@ -7,8 +7,8 @@
 #include <sstream> // istringstream
 #include <map>     // map
 
-static void processa_votos(std::map<int, Partido> partidos, Cargo cargo, std::string filePath){
-    /* try{ */
+void processa_votos(std::map<int, Partido> &partidos, Cargo cargo, std::string filePath) {
+    try {
         std::ifstream input(filePath);
         std::string line;
         getline(input, line);
@@ -16,22 +16,21 @@ static void processa_votos(std::map<int, Partido> partidos, Cargo cargo, std::st
         int codigo_cargo, numero_candidato, votos;
         Cargo cargo_candidato;
 
-        while(std::getline(input, line)){
-            /* try{ */
+        while(std::getline(input, line)) {
+            try {
             	line = iso_8859_1_to_utf8(line);
                 std::istringstream lineStream(line);
                 int i = 0;
                 std::string token;
 
                 while(std::getline(lineStream, token, ';')){
-                    //token = token.substr(1, token.size() - 2); //ATIVAR CASO ESTEJAM OS VALORES ENTRE ASPAS
+                    token = token.substr(1, token.size() - 2);
                     switch (i++){
                         case 17:
-                            if(std::stoi(token) == 6) {
+                            if(std::stoi(token) == 6)
                                 cargo_candidato = Cargo::FEDERAL;
-                                break;
-                            }
-                            cargo_candidato = Cargo::ESTADUAL;
+                            else
+                                cargo_candidato = Cargo::ESTADUAL;
                             break;
                         case 19:
                             numero_candidato = std::stoi(token);
@@ -46,29 +45,37 @@ static void processa_votos(std::map<int, Partido> partidos, Cargo cargo, std::st
 
                 if(numero_candidato == 95 || numero_candidato == 96 || numero_candidato == 97 || numero_candidato == 98)
                     continue;
-                
-                std::string numero_partido = std::to_string(numero_candidato).substr(0, 2);
-                if(cargo_candidato == cargo){
-                    /* if(partidos.find(numero_partido) == partidos.end()) */
-                       // partidos[numeroCandidato].addVotosLegenda(votos); //usar substring para pegar apenas os dois primeiros numeros do candidato ?  else{
-                        // std::string numeroPartido = numeroCandidato; //aqui tem que fazer substring, porem e int
-                    //}da pra literalmente fazer uma funcao em candidato getNumeroPartido e retornar os dois primeuiros numero
-                        //se for deptuado estadual, divide por 1000. federal divide por 100
+
+                if(cargo_candidato == cargo) {
+                    if(partidos.find(numero_candidato) != partidos.end()) {
+                        Partido &p = partidos[numero_candidato];
+                        p.add_votos_legenda(votos);
+                    }
+                    else {
+                        std::string numero_partido = std::to_string(numero_candidato).substr(0, 2);
+                        if(partidos.find(std::stoi(numero_partido)) != partidos.end()) {
+                            Partido &p = partidos[std::stoi(numero_partido)];
+                            Candidato &c = p.get_candidato(numero_candidato);
+                            if(c.is_candidatura_deferida()) {
+                                c.add_quantidade_votos(votos);
+                                p.add_votos_nominais(votos);
+                            }
+                            else if(c.get_nome_tipo_dest_votos() == Candidato::TipoDestinoVoto::LEGENDA)
+                                p.add_votos_legenda(votos);
+                        }
+                    }
                 }
-                // olha isso aqui :
-                // int valor = 45642;
 
-                // Converte o valor inteiro em uma string.
-                /* std::string numero_partido = std::to_string(valor).substr(0, 2); */
-
-                // Extrai os dois primeiros dígitos da string.
-                // std::string doisPrimeirosNumeros = stringValor.substr(0, 2);
-            /* }catch(std::exception &e){ */
-            /*     e.what(); */
-            /* } */
-        /* } */
-/*     }catch(std::exception &e){ */
-/*         e.what(); */
-/*     } */
+            } catch(std::exception &e) {
+                e.what();
+            }
+        } 
+    } catch(std::exception &e) {
+        e.what();
     }
+
+    /* for(const std::pair<int, Partido> x : partidos) { */
+    /*     Partido p = x.second; */
+    /*     p.print_partido(); */
+    /* } */
 }
