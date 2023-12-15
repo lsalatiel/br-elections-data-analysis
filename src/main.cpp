@@ -81,6 +81,10 @@ int main(int argc, char** argv) {
         std::cout << "\nEleitos, por gênero:" << std::endl;
         print_eleitos_por_genero(candidatos_eleitos);
         std::cout << std::endl;
+
+                // decimo relatorio...
+        print_total_votos(partidos);
+        std::cout << std::endl;
     
     return 0;
 }

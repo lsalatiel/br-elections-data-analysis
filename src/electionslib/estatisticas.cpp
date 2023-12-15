@@ -150,3 +150,15 @@ void print_eleitos_por_faixa_etaria(std::vector<Candidato> candidatos_eleitos, s
     std::cout << "Masculino: " << qtd_masculino << " (" << std::fixed << std::setprecision(2) << qtd_masculino * 100.0 / candidatos_eleitos.size() << "%)" << std::endl;
 }
 
+
+void print_total_votos(std::map<int, Partido> &partidos) {
+    int qtd_votos_legenda = 0, qtd_votos_nominais = 0;
+    for(const std::pair<int, Partido> x : partidos){
+        qtd_votos_legenda += x.second.get_votos_legenda();
+        qtd_votos_nominais += x.second.get_votos_nominais();
+    }
+
+std::cout << "Total de votos válidos:    " << qtd_votos_legenda + qtd_votos_nominais << std::endl;
+    std::cout << "Total de votos nominais:   " << qtd_votos_nominais << " (" << std::fixed << std::setprecision(2) << qtd_votos_nominais * 100.0 / (qtd_votos_legenda + qtd_votos_nominais) << "%)\n";
+    std::cout << "Total de votos de legenda: " << qtd_votos_legenda << " (" << std::fixed << std::setprecision(2) << qtd_votos_legenda * 100.0 / (qtd_votos_legenda + qtd_votos_nominais) << "%)\n";
+}

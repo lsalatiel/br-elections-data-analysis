@@ -19,4 +19,6 @@ void print_eleitos_por_faixa_etaria(std::vector<Candidato> candidatos_eleitos, s
 
 void print_eleitos_por_genero(std::vector<Candidato> candidatos_eleitos);
 
+void print_total_votos(std::map<int, Partido> &partidos);
+
 #endif
