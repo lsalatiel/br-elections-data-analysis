@@ -1,3 +1,4 @@
 input/
 main
+obj/
 *.csv
