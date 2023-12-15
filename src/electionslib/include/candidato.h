@@ -32,8 +32,10 @@ class Candidato {
 
     public:
         Candidato() {};
-        Candidato(std::string nome, std::string nome_urna, Candidato::SituacaoCandidato codigo_situacao_candidato, int numero, int numero_partido, int numero_federacao,
+        Candidato(const std::string &nome, const std::string &nome_urna, Candidato::SituacaoCandidato codigo_situacao_candidato, int numero, int numero_partido, int numero_federacao,
                 Candidato::SituacaoTurno codigo_situacao_turno, Candidato::Genero genero, std::tm data_nascimento, Candidato::TipoDestinoVoto nome_tipo_dest_votos);
+        /* Candidato(std::string &nome, std::string &nome_urna, Candidato::SituacaoCandidato &codigo_situacao_candidato, int &numero, int &numero_partido, int &numero_federacao, */
+        /*         Candidato::SituacaoTurno &codigo_situacao_turno, Candidato::Genero &genero, std::tm &data_nascimento, Candidato::TipoDestinoVoto &nome_tipo_dest_votos); */
 
         int get_numero_federacao() const;
 
@@ -49,9 +51,9 @@ class Candidato {
 
         std::tm getDataNascimento() const;
 
-        std::string get_nome_na_urna() const;
+        const std::string &get_nome_na_urna() const;
 
-        std::string get_nome() const;
+        const std::string &get_nome() const;
 
         Candidato::Genero get_genero() const;
 
@@ -61,7 +63,7 @@ class Candidato {
 
         void add_quantidade_votos(int quantidadeVotos);
 
-        void print_candidato();
+        void print_candidato() const;
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "include/candidato.h"
 
-Candidato::Candidato(std::string nome, std::string nome_urna, Candidato::SituacaoCandidato codigo_situacao_candidato, int numero, int numero_partido, int numero_federacao,
+Candidato::Candidato(const std::string &nome, const std::string &nome_urna, Candidato::SituacaoCandidato codigo_situacao_candidato, int numero, int numero_partido, int numero_federacao,
         Candidato::SituacaoTurno codigo_situacao_turno, Candidato::Genero genero, std::tm data_nascimento, Candidato::TipoDestinoVoto nome_tipo_dest_votos) :
             nome(nome),
             nome_urna(nome_urna),
@@ -12,6 +12,19 @@ Candidato::Candidato(std::string nome, std::string nome_urna, Candidato::Situaca
             genero(genero),
 			data_nascimento(data_nascimento),
             nome_tipo_dest_votos(nome_tipo_dest_votos) {total_votos = 0;}
+
+/* Candidato::Candidato(std::string &nome, std::string &nome_urna, Candidato::SituacaoCandidato &codigo_situacao_candidato, int &numero, int &numero_partido, int &numero_federacao, */
+/*         Candidato::SituacaoTurno &codigo_situacao_turno, Candidato::Genero &genero, std::tm &data_nascimento, Candidato::TipoDestinoVoto &nome_tipo_dest_votos) : */
+/*             nome(nome), */
+/*             nome_urna(nome_urna), */
+/*             codigo_situacao_candidato(codigo_situacao_candidato), */
+/*             numero(numero), */
+/*             numero_partido(numero_partido), */
+/*             numero_federacao(numero_federacao), */
+/*             codigo_situacao_turno(codigo_situacao_turno), */
+/*             genero(genero), */
+/* 			data_nascimento(data_nascimento), */
+/*             nome_tipo_dest_votos(nome_tipo_dest_votos) {total_votos = 0;} */
 
 int Candidato::get_numero_federacao() const {
     return numero_federacao;
@@ -33,12 +46,11 @@ std::tm Candidato::getDataNascimento() const{
 	return data_nascimento;
 }
 
-
-std::string Candidato::get_nome_na_urna() const {
+const std::string &Candidato::get_nome_na_urna() const {
     return nome_urna;
 }
 
-std::string Candidato::get_nome() const {
+const std::string &Candidato::get_nome() const {
     return nome;
 }
 
@@ -66,7 +78,7 @@ void Candidato::add_quantidade_votos(int quantidadeVotos) {
     total_votos += quantidadeVotos;
 }
 
-void Candidato::print_candidato() {
+void Candidato::print_candidato() const {
     std::cout << nome << std::endl;
     std::cout << nome_urna << std::endl;
     std::cout << numero << std::endl;
@@ -92,4 +104,5 @@ void Candidato::print_candidato() {
     else
         std::cout << "FEMININO" << std::endl;
 
+    std::cout << total_votos << std::endl;
 }

@@ -1,14 +1,18 @@
 #include "include/partido.h"
 
-Partido::Partido(std::string sigla, int numero) :
+Partido::Partido(const std::string &sigla, int numero) :
             sigla(sigla),
             numero(numero) {votos_nominais = 0; votos_legenda = 0;}
+
+/* Partido::Partido(std::string &sigla, int &numero) : */
+/*             sigla(sigla), */
+/*             numero(numero) {votos_nominais = 0; votos_legenda = 0;}   //CRIEI ESSA PARADA AGORA */
 
 int Partido::get_numero() const {
     return numero;
 }
 
-std::string Partido::get_sigla() const {
+const std::string &Partido::get_sigla() const {
     return sigla;
 }
 
@@ -53,14 +57,27 @@ void Partido::add_votos_nominais(int qtd_votos) {
 }
 
 const Candidato &Partido::get_candidato_mais_votado() const {
+    Candidato mais_votado;
+    int i = 0;
+    for(const std::pair<int, Candidato> x : candidatos){
+        Candidato c = x.second;
+        if(!i++){
+            mais_votado = c;
+            continue;
+        }
 
+        if(c.get_quantidade_votos() > mais_votado.get_quantidade_votos())
+            mais_votado = c;
+    }
+
+    return mais_votado;
 }
 
 const Candidato &Partido::get_candidato_menos_votado() const {
-
+    Candidato menos_votado;
 }
 
-void Partido::print_partido() {
+void Partido::print_partido() const {
     std::cout << sigla << "\n" << numero << std::endl;
     
     for(const std::pair<int, Candidato> x : candidatos){
