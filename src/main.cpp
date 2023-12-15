@@ -26,14 +26,6 @@ int main(int argc, char** argv) {
     processa_votos(partidos, cargo, votacao_file_path);
     std::vector federacoes = cria_federacoes(partidos);
 
-    int votos_validos, votos_nominais, votos_legenda;
-    for(const std::pair<int, Partido> p : partidos){
-        Partido x = p.second;
-        votos_validos += x.get_votos_totais();
-        votos_nominais += x.get_votos_nominais();
-        votos_legenda += x.get_votos_legenda();
-    }
-    std::cout << "votos validos: " << votos_validos << "\nvotos nominais: " << votos_nominais << "\nvotos legenda: " << votos_legenda << std::endl;
     /*
     Espírito Santo:
     Total de votos válidos:    2.084.430
@@ -41,10 +33,10 @@ int main(int argc, char** argv) {
     Total de votos de legenda: 75.772 (3,64%)
     */
     
-    std::locale brasilLocale("pt_BR.UTF-8");
-    std::cout.imbue(brasilLocale);
+    /* std::locale brasilLocale("pt_BR.UTF-8"); */
+    /* std::cout.imbue(brasilLocale); */
     
-            // primeiro e segundo relatorio...
+    // primeiro e segundo relatorio...
     std::vector<Candidato> candidatos_eleitos = get_candidatos_eleitos_ordenados(partidos);
     std::cout << "Número de vagas: " << candidatos_eleitos.size() << "\n" << std::endl;
     std::string text = cargo == Cargo::FEDERAL ? "Deputados federais eleitos:" : "Deputados estaduais eleitos:";
@@ -52,7 +44,7 @@ int main(int argc, char** argv) {
     print_candidatos(candidatos_eleitos, federacoes, partidos);
 
 
-            // terceiro relatorio...
+    // terceiro relatorio...
     std::cout << "\nCandidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):" << std::endl;
     std::vector<Candidato> candidatos_mais_votados = get_candidatos_mais_votados(partidos);
     std::vector<Candidato> candidatos_mais_votados_em_vagas(
@@ -61,11 +53,11 @@ int main(int argc, char** argv) {
     );
     print_candidatos(candidatos_mais_votados_em_vagas, federacoes, partidos);
 
-            // sexto relatorio...
+    // sexto relatorio...
     std::cout << "\nVotação dos partidos e número de candidatos eleitos:" << std::endl;
     print_partidos_com_votos(partidos);
 
-            // sétimo relatorio...
+    // sétimo relatorio...
     std::cout << "\nPrimeiro e último colocados de cada partido:" << std::endl;
     //print_primeiro_ultimo_colocados(partidos);
     //funcao ordena_partidos_por_total_votos em util.cpp
@@ -73,18 +65,18 @@ int main(int argc, char** argv) {
     //RESOLVER ESSAS DUAS para então o sétimo relatório funcionar!
     
 
-            // oitavo relatorio...
+    // oitavo relatorio...
     std::cout << "\nEleitos, por faixa etária (na data da eleição):" << std::endl;
     print_eleitos_por_faixa_etaria(candidatos_eleitos, data_eleicao);
 
-                // nono relatorio...
-        std::cout << "\nEleitos, por gênero:" << std::endl;
-        print_eleitos_por_genero(candidatos_eleitos);
-        std::cout << std::endl;
+    // nono relatorio...
+    std::cout << "\nEleitos, por gênero:" << std::endl;
+    print_eleitos_por_genero(candidatos_eleitos);
+    std::cout << std::endl;
 
-                // decimo relatorio...
-        print_total_votos(partidos);
-        std::cout << std::endl;
+    // decimo relatorio...
+    print_total_votos(partidos);
+    std::cout << std::endl;
     
     return 0;
 }

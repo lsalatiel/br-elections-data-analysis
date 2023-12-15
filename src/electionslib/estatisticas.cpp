@@ -162,3 +162,57 @@ std::cout << "Total de votos válidos:    " << qtd_votos_legenda + qtd_votos_nom
     std::cout << "Total de votos nominais:   " << qtd_votos_nominais << " (" << std::fixed << std::setprecision(2) << qtd_votos_nominais * 100.0 / (qtd_votos_legenda + qtd_votos_nominais) << "%)\n";
     std::cout << "Total de votos de legenda: " << qtd_votos_legenda << " (" << std::fixed << std::setprecision(2) << qtd_votos_legenda * 100.0 / (qtd_votos_legenda + qtd_votos_nominais) << "%)\n";
 }
+
+void print_candidatos(const std::vector<Candidato>& candidatos, const std::vector<Federacao>& federacoes, const std::map<int, Partido>& partidos) {
+	int i = 1;
+	for(const Candidato &c : candidatos) {
+		std::cout << i << " - ";
+		for(const Federacao &f : federacoes) {
+			if(f.get_numero() == c.get_numero_federacao()) {
+				std::cout << "*";
+				break;
+			}
+		}
+
+		std::string numero_partido = std::to_string(c.get_numero_candidato()).substr(0, 2);
+		auto it = partidos.find(std::stoi(numero_partido));
+		const Partido &p = it->second;
+
+		//std::cout << c.print_candidato();
+		std::cout << "" << c.get_nome_na_urna();
+		std::cout << " (" << p.get_sigla() << ", " << c.get_quantidade_votos() << " votos)" << std::endl;
+		i++;
+	}
+}
+
+std::vector<std::pair<int, Partido>> ordena_partidos_por_total_votos(const std::map<int, Partido>& partidos){
+	std::vector<std::pair<int, Partido>> vector_partidos;
+    for(auto& it : partidos)
+        vector_partidos.push_back(it);
+
+    std::sort(vector_partidos.begin(), vector_partidos.end(), [](const auto& p1, const auto& p2) {
+        if(p1.second.get_votos_totais() == p2.second.get_votos_totais())
+            return p1.second.get_numero() < p2.second.get_numero();
+        else
+            return p1.second.get_votos_totais() > p2.second.get_votos_totais();
+    });
+
+	return vector_partidos;
+}
+
+// std::vector<std::pair<int, Partido>> ordena_partidos_por_mais_votado(const std::map<int, Partido>& partidos){
+// 	std::vector<std::pair<int, Partido>> vector_partidos;
+//     for(auto& it : partidos)
+//         vector_partidos.push_back(it);
+
+//     std::sort(vector_partidos.begin(), vector_partidos.end(), [](const auto& p1, const auto& p2) {
+// 		const Candidato *c1 = p1.second.get_candidato_mais_votado();
+// 		if(!c1) return 1; //TO DO     
+// 		const Candidato *c2 = p2.second.get_candidato_mais_votado();
+// 		if(!c2) return -1;
+
+// 		return c1->get_quantidade_votos() > c2->get_quantidade_votos();
+//     });
+
+// 	return vector_partidos;
+// }

@@ -21,4 +21,10 @@ void print_eleitos_por_genero(std::vector<Candidato> candidatos_eleitos);
 
 void print_total_votos(std::map<int, Partido> &partidos);
 
+void print_candidatos(const std::vector<Candidato>& candidatos, const std::vector<Federacao>& federacoes, const std::map<int, Partido>& partidos);
+
+std::vector<std::pair<int, Partido>> ordena_partidos_por_total_votos(const std::map<int, Partido>& partidos);
+
+std::vector<std::pair<int, Partido>> ordena_partidos_por_mais_votado(const std::map<int, Partido>& partidos);
+
 #endif
