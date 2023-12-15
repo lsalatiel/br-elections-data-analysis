@@ -23,4 +23,4 @@ runfederal:
 	./deputados --federal candidatos.csv votacao.csv 02/10/2022
 runestadual:
 	make
-	./deputados --federal candidatos.csv votacao.csv 02/10/2022
+	./deputados --estadual candidatos.csv votacao.csv 02/10/2022
