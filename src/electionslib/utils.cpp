@@ -115,19 +115,19 @@ std::vector<std::pair<int, Partido>> ordena_partidos_por_total_votos(const std::
 	return vector_partidos;
 }
 
-std::vector<std::pair<int, Partido>> ordena_partidos_por_mais_votado(const std::map<int, Partido>& partidos){
-	std::vector<std::pair<int, Partido>> vector_partidos;
-    for(auto& it : partidos)
-        vector_partidos.push_back(it);
+// std::vector<std::pair<int, Partido>> ordena_partidos_por_mais_votado(const std::map<int, Partido>& partidos){
+// 	std::vector<std::pair<int, Partido>> vector_partidos;
+//     for(auto& it : partidos)
+//         vector_partidos.push_back(it);
 
-    std::sort(vector_partidos.begin(), vector_partidos.end(), [](const auto& p1, const auto& p2) {
-		const Candidato *c1 = p1.second.get_candidato_mais_votado();
-		if(!c1) return 1; //TO DO     
-		const Candidato *c2 = p2.second.get_candidato_mais_votado();
-		if(!c2) return -1;
+//     std::sort(vector_partidos.begin(), vector_partidos.end(), [](const auto& p1, const auto& p2) {
+// 		const Candidato *c1 = p1.second.get_candidato_mais_votado();
+// 		if(!c1) return 1; //TO DO     
+// 		const Candidato *c2 = p2.second.get_candidato_mais_votado();
+// 		if(!c2) return -1;
 
-		return c1->get_quantidade_votos() > c2->get_quantidade_votos();
-    });
+// 		return c1->get_quantidade_votos() > c2->get_quantidade_votos();
+//     });
 
-	return vector_partidos;
-}
+// 	return vector_partidos;
+// }

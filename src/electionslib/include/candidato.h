@@ -47,7 +47,7 @@ class Candidato {
 
         bool is_eleito() const;
 
-        std::tm getDataNascimento() const;
+        std::tm get_data_nascimento() const;
 
         const std::string &get_nome_na_urna() const;
 

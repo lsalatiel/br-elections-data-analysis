@@ -42,7 +42,7 @@ Candidato::TipoDestinoVoto Candidato::get_nome_tipo_dest_votos() const {
     return nome_tipo_dest_votos;
 }
 
-std::tm Candidato::getDataNascimento() const{
+std::tm Candidato::get_data_nascimento() const{
 	return data_nascimento;
 }
 

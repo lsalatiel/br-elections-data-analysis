@@ -15,4 +15,8 @@ void print_partidos_com_votos(std::map<int, Partido> &partidos);
 
 void print_primeiro_ultimo_colocados(std::map<int, Partido> &partidos);
 
+void print_eleitos_por_faixa_etaria(std::vector<Candidato> candidatos_eleitos, std::tm date);
+
+void print_eleitos_por_genero(std::vector<Candidato> candidatos_eleitos);
+
 #endif

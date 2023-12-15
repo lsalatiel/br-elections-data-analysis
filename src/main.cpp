@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include "electionslib/include/candidatos_deserializer.h"
 #include "electionslib/include/partido.h"
 #include "electionslib/include/votos_deserializer.h"
@@ -13,6 +14,13 @@ int main(int argc, char** argv) {
 
     const std::string &candidatos_file_path = argv[2];
     const std::string &votacao_file_path = argv[3];
+
+    std::tm data_eleicao = {};
+    std::istringstream iss(argv[4]);
+    char delimiter;
+    iss >> data_eleicao.tm_mday >> delimiter >> data_eleicao.tm_mon >> delimiter >> data_eleicao.tm_year;
+    data_eleicao.tm_mon -= 1;
+    data_eleicao.tm_year -= 1900;
 
     std::map<int, Partido> partidos = processa_candidatos(cargo, candidatos_file_path);
     processa_votos(partidos, cargo, votacao_file_path);
@@ -59,12 +67,20 @@ int main(int argc, char** argv) {
 
             // sétimo relatorio...
     std::cout << "\nPrimeiro e último colocados de cada partido:" << std::endl;
-    print_primeiro_ultimo_colocados(partidos);
+    //print_primeiro_ultimo_colocados(partidos);
     //funcao ordena_partidos_por_total_votos em util.cpp
     //funcao get_candidato_mais_votado em partido.cpp
     //RESOLVER ESSAS DUAS para então o sétimo relatório funcionar!
     
 
+            // oitavo relatorio...
+    std::cout << "\nEleitos, por faixa etária (na data da eleição):" << std::endl;
+    print_eleitos_por_faixa_etaria(candidatos_eleitos, data_eleicao);
 
+                // nono relatorio...
+        std::cout << "\nEleitos, por gênero:" << std::endl;
+        print_eleitos_por_genero(candidatos_eleitos);
+        std::cout << std::endl;
+    
     return 0;
 }

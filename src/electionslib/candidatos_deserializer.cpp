@@ -60,9 +60,9 @@ std::map<int, Partido> processa_candidatos(Cargo cargo, const std::string &file_
                             break;
                         case 45:
                             if(std::stoi(token) == 2) 
-                                genero = Candidato::Genero::FEMININO;
-                            else
                                 genero = Candidato::Genero::MASCULINO;
+                            else
+                                genero = Candidato::Genero::FEMININO;
                             break;
                         case 56:
                             if(std::stoi(token) == 2 || std::stoi(token) == 3)
