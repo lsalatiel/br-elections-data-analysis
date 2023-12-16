@@ -19,8 +19,8 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 clean:
 	rm -rf $(OBJ_DIR) $(EXEC)
 runfederal:
-	make
-	./deputados --federal candidatos.csv votacao.csv 02/10/2022
+	@make > /dev/null
+	@./deputados --federal candidatos.csv votacao.csv 24/08/2022
 runestadual:
-	make
-	./deputados --estadual candidatos.csv votacao.csv 02/10/2022
+	@make > /dev/null
+	@./deputados --estadual candidatos.csv votacao.csv 02/10/2022
