@@ -3,3 +3,5 @@ main
 deputados
 obj/
 *.csv
+*.sh
+testes/

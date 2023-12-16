@@ -25,6 +25,17 @@ std::string iso_8859_1_to_utf8(std::string &str){
 	return strOut;
 }
 
+std::tm initialize_date(const std::string &date) {
+    std::tm data_eleicao = {};
+    std::istringstream iss(date);
+    char delimiter;
+    iss >> data_eleicao.tm_mday >> delimiter >> data_eleicao.tm_mon >> delimiter >> data_eleicao.tm_year;
+    data_eleicao.tm_mon -= 1;
+    data_eleicao.tm_year -= 1900;
+
+    return data_eleicao;
+}
+
 void check_arguments(int argc, char **argv, int expected_argc, const std::string &usage) {
     if(argc < expected_argc) {
         std::cout << "Not enough arguments. Usage: " << argv[0] << " " << usage << std::endl;

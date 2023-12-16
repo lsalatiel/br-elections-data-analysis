@@ -15,12 +15,7 @@ int main(int argc, char** argv) {
     const std::string &candidatos_file_path = argv[2];
     const std::string &votacao_file_path = argv[3];
 
-    std::tm data_eleicao = {};
-    std::istringstream iss(argv[4]);
-    char delimiter;
-    iss >> data_eleicao.tm_mday >> delimiter >> data_eleicao.tm_mon >> delimiter >> data_eleicao.tm_year;
-    data_eleicao.tm_mon -= 1;
-    data_eleicao.tm_year -= 1900;
+    std::tm data_eleicao = initialize_date(argv[4]);
 
     std::map<int, Partido> partidos = processa_candidatos(cargo, candidatos_file_path);
     processa_votos(partidos, cargo, votacao_file_path);
@@ -61,10 +56,13 @@ int main(int argc, char** argv) {
 
     // nono relatorio...
     print_eleitos_por_genero(candidatos_eleitos);
+    std::cout << std::endl;
 
     // decimo relatorio...
     print_total_votos(partidos);
     std::cout << std::endl;
+
+    /* std::cout.imbue(std::locale("C")); */
     
     return 0;
 }
