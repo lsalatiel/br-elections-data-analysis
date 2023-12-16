@@ -7,7 +7,7 @@ bool __compare_candidato(const Candidato &c1, const Candidato &c2) {
         std::tm c1_date = c1.get_data_nascimento();
         std::tm c2_date = c2.get_data_nascimento();
         std::time_t time_diff = std::difftime(std::mktime(&c1_date), std::mktime(&c2_date));
-        return time_diff > 0;
+        return time_diff < 0;
     }
     return c1.get_quantidade_votos() > c2.get_quantidade_votos();
 }
