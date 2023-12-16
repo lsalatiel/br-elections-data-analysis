@@ -38,8 +38,6 @@ class Partido {
         void add_votos_nominais(int qtdVotos);
 
         const Candidato &get_candidato_mais_votado() const;
-
-        void print_partido() const;
 };
 
 #endif

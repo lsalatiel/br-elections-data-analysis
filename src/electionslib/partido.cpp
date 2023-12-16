@@ -4,10 +4,6 @@ Partido::Partido(const std::string &sigla, int numero) :
             sigla(sigla),
             numero(numero) {votos_nominais = 0; votos_legenda = 0;}
 
-/* Partido::Partido(std::string &sigla, int &numero) : */
-/*             sigla(sigla), */
-/*             numero(numero) {votos_nominais = 0; votos_legenda = 0;}   //CRIEI ESSA PARADA AGORA */
-
 int Partido::get_numero() const {
     return numero;
 }
@@ -70,12 +66,3 @@ const Candidato &Partido::get_candidato_mais_votado() const {
     return candidatos.at(key);
 }
 
-void Partido::print_partido() const {
-    std::cout << sigla << "\n" << numero << std::endl;
-    
-    for(const std::pair<int, Candidato> x : candidatos){
-        Candidato c = x.second;
-        c.print_candidato();
-        std::cout << std::endl;
-    }
-};
