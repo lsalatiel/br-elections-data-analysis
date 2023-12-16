@@ -28,7 +28,6 @@ std::map<int, Partido> processa_candidatos(Cargo cargo, const std::string &file_
                 std::istringstream line_stream(line);
                 int i = 0;
                 std::string token;
-                bool teste = false;
                 while(std::getline(line_stream, token, ';')) {
                 	token = token.substr(1, token.size() - 2);
                     switch(i++) {

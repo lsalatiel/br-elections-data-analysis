@@ -223,13 +223,10 @@ void print_eleitos_por_faixa_etaria(std::vector<Candidato> candidatos_eleitos, s
         int mes = date.tm_mon - data_nascimento.tm_mon;
         int dia = date.tm_mday - data_nascimento.tm_mday;
 
-        if(mes < 0){
+        if(mes < 0)
             ano--;
-        }else if(!mes){
-            if(dia < 0){
-                ano--;
-            }
-        }
+        else if(!mes && dia < 0)
+            ano--;
 
         int idade = ano;
         if(idade < 30)

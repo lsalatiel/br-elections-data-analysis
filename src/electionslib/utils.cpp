@@ -43,7 +43,7 @@ void check_arguments(int argc, char **argv, int expected_argc, const std::string
     }
 }
 
-Cargo update_cargo(const std::string &cmp, const std::string &federal, const std::string &estadual, const std::string &error_msg) {
+Cargo initialize_cargo(const std::string &cmp, const std::string &federal, const std::string &estadual, const std::string &error_msg) {
     Cargo cargo;
     if(cmp == federal)
         cargo = Cargo::FEDERAL;

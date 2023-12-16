@@ -11,7 +11,7 @@ void check_arguments(int argc, char **argv, int expected_argc, const std::string
 
 std::tm initialize_date(const std::string &date);
 
-Cargo update_cargo(const std::string &cmp, const std::string &federal, const std::string &estadual, const std::string &error_msg);
+Cargo initialize_cargo(const std::string &cmp, const std::string &federal, const std::string &estadual, const std::string &error_msg);
 
 std::vector<Federacao> cria_federacoes(std::map<int, Partido> &partidos);
 

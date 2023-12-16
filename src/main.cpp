@@ -10,7 +10,7 @@
 int main(int argc, char** argv) {
     check_arguments(argc, argv, 5, "<cargo> <candidatos.csv> <votacao.csv> <data_eleicao>");
 
-    Cargo cargo = update_cargo(argv[1], "--federal", "--estadual", "Invalid cargo. Usage: --federal or --estadual");
+    Cargo cargo = initialize_cargo(argv[1], "--federal", "--estadual", "Invalid cargo. Usage: --federal or --estadual");
 
     const std::string &candidatos_file_path = argv[2];
     const std::string &votacao_file_path = argv[3];
@@ -21,8 +21,8 @@ int main(int argc, char** argv) {
     processa_votos(partidos, cargo, votacao_file_path);
     std::vector federacoes = cria_federacoes(partidos);
 
-    std::locale brasilLocale("pt_BR.UTF-8"); 
-    std::cout.imbue(brasilLocale); 
+    /* std::locale brasilLocale("pt_BR.UTF-8");  */
+    /* std::cout.imbue(brasilLocale);  */
     
     // primeiro e segundo relatorio...
     std::vector<Candidato> candidatos_eleitos = get_candidatos_eleitos_ordenados(partidos);
@@ -62,7 +62,7 @@ int main(int argc, char** argv) {
     print_total_votos(partidos);
     std::cout << std::endl;
 
-    std::cout.imbue(std::locale("C"));
+    /* std::cout.imbue(std::locale("C")); */
     
     return 0;
 }

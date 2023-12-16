@@ -20,7 +20,6 @@ void processa_votos(std::map<int, Partido> &partidos, Cargo cargo, std::string f
                 std::istringstream lineStream(line);
                 int i = 0;
                 std::string token;
-                bool teste = false;
                 while(std::getline(lineStream, token, ';')){
                     token = token.substr(1, token.size() - 2);
                     switch (i++){
