@@ -219,9 +219,19 @@ void print_eleitos_por_faixa_etaria(std::vector<Candidato> candidatos_eleitos, s
     int menor30 = 0, menor40 = 0, menor50 = 0,  menor60 = 0, maior60 = 0;
     for(Candidato c : candidatos_eleitos) {
         std::tm data_nascimento = c.get_data_nascimento();
-        std::time_t time_diff = std::difftime(std::mktime(&date), std::mktime(&data_nascimento));
-        int idade = static_cast<int>(time_diff) / (60 * 60 * 24 * 365);
+        int ano = date.tm_year - data_nascimento.tm_year;
+        int mes = date.tm_mon - data_nascimento.tm_mon;
+        int dia = date.tm_mday - data_nascimento.tm_mday;
 
+        if(mes < 0){
+            ano--;
+        }else if(!mes){
+            if(dia < 0){
+                ano--;
+            }
+        }
+
+        int idade = ano;
         if(idade < 30)
             menor30++;
         else if(idade < 40)
@@ -236,12 +246,12 @@ void print_eleitos_por_faixa_etaria(std::vector<Candidato> candidatos_eleitos, s
 
     std::cout << "      Idade < 30: " << menor30 << " (" << std::fixed << std::setprecision(2) << menor30 * 100.0 / candidatos_eleitos.size() << "%)" << std::endl; 
     std::cout << "30 <= Idade < 40: " << menor40 << " (" << std::fixed << std::setprecision(2) << menor40 * 100.0 / candidatos_eleitos.size() << "%)" << std::endl; 
-    std::cout << "40 <= Idade < 50: " << menor50 << " (" << std::fixed << std::setprecision(2) <<  menor50 * 100.0 / candidatos_eleitos.size() << "%)" << std::endl;
-    std::cout << "50 <= Idade < 60: " << menor60 << " (" << std::fixed << std::setprecision(2) <<  menor60 * 100.0 / candidatos_eleitos.size() << "%)" << std::endl; 
-    std::cout << "60 <= Idade     : " << maior60 << " (" << std::fixed << std::setprecision(2) <<  maior60 * 100.0 / candidatos_eleitos.size() << "%)" << std::endl;
+    std::cout << "40 <= Idade < 50: " << menor50 << " (" << std::fixed << std::setprecision(2) << menor50 * 100.0 / candidatos_eleitos.size() << "%)" << std::endl;
+    std::cout << "50 <= Idade < 60: " << menor60 << " (" << std::fixed << std::setprecision(2) << menor60 * 100.0 / candidatos_eleitos.size() << "%)" << std::endl; 
+    std::cout << "60 <= Idade     : " << maior60 << " (" << std::fixed << std::setprecision(2) << maior60 * 100.0 / candidatos_eleitos.size() << "%)" << std::endl;
 }
 
- void print_eleitos_por_genero(std::vector<Candidato> candidatos_eleitos) {
+void print_eleitos_por_genero(std::vector<Candidato> candidatos_eleitos) {
     std::cout << "\nEleitos, por gênero:" << std::endl;
     int qtd_masculino = 0, qtd_feminino = 0;
     for(Candidato c : candidatos_eleitos) {

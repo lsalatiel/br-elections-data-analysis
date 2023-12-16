@@ -12,24 +12,25 @@ void processa_votos(std::map<int, Partido> &partidos, Cargo cargo, std::string f
         std::string line;
         getline(input, line);
 
-        int  numero_candidato, votos;
-        Cargo cargo_candidato;
-
+        int numero_candidato, votos;
+        Cargo cargo_candidato = Cargo::INVALIDO;
         while(std::getline(input, line)) {
             try {
             	line = iso_8859_1_to_utf8(line);
                 std::istringstream lineStream(line);
                 int i = 0;
                 std::string token;
-
+                bool teste = false;
                 while(std::getline(lineStream, token, ';')){
                     token = token.substr(1, token.size() - 2);
                     switch (i++){
                         case 17:
                             if(std::stoi(token) == 6)
                                 cargo_candidato = Cargo::FEDERAL;
-                            else
+                            else if(std::stoi(token) == 7) 
                                 cargo_candidato = Cargo::ESTADUAL;
+                            else
+                                cargo_candidato = Cargo::INVALIDO;
                             break;
                         case 19:
                             numero_candidato = std::stoi(token);

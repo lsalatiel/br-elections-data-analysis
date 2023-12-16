@@ -20,7 +20,7 @@ std::map<int, Partido> processa_candidatos(Cargo cargo, const std::string &file_
         Candidato::SituacaoCandidato situacao_candidato;
         Candidato::SituacaoTurno situacao_turno;
         Candidato::TipoDestinoVoto tipo_destino_voto;
-        Cargo cargo_candidato;
+        Cargo cargo_candidato = Cargo::INVALIDO;
 
         while(std::getline(input, line)) {
             try {
@@ -28,14 +28,17 @@ std::map<int, Partido> processa_candidatos(Cargo cargo, const std::string &file_
                 std::istringstream line_stream(line);
                 int i = 0;
                 std::string token;
+                bool teste = false;
                 while(std::getline(line_stream, token, ';')) {
                 	token = token.substr(1, token.size() - 2);
                     switch(i++) {
                         case 13:
                             if(std::stoi(token) == 6)
                                 cargo_candidato = Cargo::FEDERAL;
-                            else
+                            else if(std::stoi(token) == 7) 
                                 cargo_candidato = Cargo::ESTADUAL;
+                            else
+                                cargo_candidato = Cargo::INVALIDO;
                             break;
                         case 16:
                             numero = std::stoi(token);
@@ -91,7 +94,7 @@ std::map<int, Partido> processa_candidatos(Cargo cargo, const std::string &file_
 
                 if(partidos.find(numero_partido) == partidos.end())
                     partidos.insert(std::pair<int, Partido>(numero_partido, Partido(sigla, numero_partido)));
-                
+
                 std::tm data = {};
                 std::istringstream iss(data_nascimento);
                 char delimiter;
@@ -99,7 +102,7 @@ std::map<int, Partido> processa_candidatos(Cargo cargo, const std::string &file_
                 data.tm_mon -= 1;
                 data.tm_year -= 1900;
 
-                if(cargo_candidato == cargo && (tipo_destino_voto == Candidato::TipoDestinoVoto::NOMINAL || tipo_destino_voto == Candidato::TipoDestinoVoto::LEGENDA)) {
+                if(cargo_candidato == cargo && ((tipo_destino_voto == Candidato::TipoDestinoVoto::NOMINAL) || (tipo_destino_voto == Candidato::TipoDestinoVoto::LEGENDA))) {
                     Candidato c(nome, nome_urna, situacao_candidato, numero, numero_partido, numero_federacao, situacao_turno, genero, data, tipo_destino_voto);
                     partidos.at(numero_partido).add_candidato(c);
                 }

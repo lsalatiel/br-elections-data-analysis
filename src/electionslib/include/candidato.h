@@ -5,7 +5,7 @@
 #include <chrono>
 #include <ctime>
 
-enum class Cargo { FEDERAL = 6, ESTADUAL = 7 };
+enum class Cargo { FEDERAL = 6, ESTADUAL = 7, INVALIDO = 0};
 
 class Candidato {
     public:
