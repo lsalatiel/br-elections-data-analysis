@@ -31,7 +31,7 @@ EXECUTAVEL = deputados
 # alvo principal é o executável
 all: $(EXECUTAVEL)
 	# para linkar o executável, precisamos dos arquivos-objetos
-	$(EXECUTAVEL): $(OBJETOS)
+$(EXECUTAVEL): $(OBJETOS)
 	@$(CPP) -o $@ $^
 
 # alvo para cada arquivo-objeto depende do código fonte

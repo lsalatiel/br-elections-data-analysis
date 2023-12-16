@@ -20,7 +20,7 @@ clean:
 	rm -rf $(OBJ_DIR) $(EXEC)
 runfederal:
 	@make > /dev/null
-	@./deputados --federal candidatos.csv votacao.csv 24/08/2022
+	@./$(EXEC) --federal candidatos.csv votacao.csv 24/08/2022
 runestadual:
 	@make > /dev/null
-	@./deputados --estadual candidatos.csv votacao.csv 02/10/2022
+	@./$(EXEC) --estadual candidatos.csv votacao.csv 02/10/2022
